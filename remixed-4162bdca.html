@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Naama & Yaki – Moving Out Sale</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fafaf8;--card:#fff;--border:#e8e8e8;--primary:#5c7a9f;--accent:#8b7355;
+  --success:#6b8f5e;--text:#2d2d2d;--muted:#7a7a7a;--light:#f4f6fa;--danger:#9b6b5e;
+  --admin:#7c5cbf;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+header{background:#fff;border-bottom:1px solid var(--border);padding:14px 0 8px;position:sticky;top:0;z-index:100}
+.hrow{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h1{font-size:18px;font-weight:500;color:var(--primary)}
+h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
+.hadmin{display:flex;gap:8px;align-items:center}
+.btn-sm{padding:5px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;font-weight:500;color:var(--text)}
+.btn-sm.admin-on{background:var(--admin);color:#fff;border-color:var(--admin)}
+.btn-sm.danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;padding:8px 16px 0;max-width:1100px;margin:0 auto}
+.pill{padding:4px 11px;border:1px solid var(--border);border-radius:20px;background:#fff;font-size:12px;cursor:pointer;color:var(--text);transition:.15s}
+.pill.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 16px 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+/* card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:.18s;cursor:pointer}
+.card:hover{box-shadow:0 3px 14px rgba(0,0,0,.09);border-color:#b8ccdf;transform:translateY(-1px)}
+.card.sold{opacity:.45;pointer-events:none}
+.card.admin-mode{cursor:default;border:1.5px dashed var(--admin)}
+.card.admin-mode:hover{transform:none}
+.thumb{width:100%;height:200px;object-fit:cover;display:block;background:#f0ede8}
+.no-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:#f0ede8;color:var(--muted);font-size:12px;flex-direction:column;gap:6px}
+.cbody{padding:12px 13px;flex:1;display:flex;flex-direction:column;gap:4px}
+.rtag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.cname{font-size:13px;font-weight:500;line-height:1.3}
+.cprice{font-size:18px;font-weight:500;color:var(--primary);display:flex;align-items:baseline;gap:7px}
+.orig{font-size:11px;color:var(--muted);text-decoration:line-through}
+.dims{font-size:11px;color:var(--muted);background:var(--light);border-radius:4px;padding:2px 6px;display:inline-block}
+.cdesc{font-size:11px;color:var(--muted);line-height:1.4;margin-top:2px}
+.cfooter{padding:0 13px 12px;display:flex;gap:6px}
+.btn{flex:1;padding:7px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;transition:.15s;text-align:center}
+.bp{background:var(--primary);color:#fff}.bp:hover{background:#4a6a8f}
+.bs{background:var(--light);color:var(--primary);border:1px solid #d0dcea}
+.sold-badge{background:var(--success);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;text-transform:uppercase;margin-left:5px}
+.sold-label{background:#888;color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;text-transform:uppercase;margin-left:5px}
+/* admin card controls */
+.admin-toolbar{display:none;padding:8px 13px;background:#f8f5ff;border-top:1px solid #e0d8f5;gap:6px}
+.admin-toolbar.show{display:flex;flex-wrap:wrap}
+.abt{padding:4px 9px;font-size:11px;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:#fff;font-weight:500}
+.abt.edit{color:var(--admin);border-color:var(--admin)}
+.abt.sold-tog.is-sold{background:#888;color:#fff;border-color:#888}
+.abt.sold-tog{background:#fff;color:var(--success);border-color:var(--success)}
+.abt.del{color:var(--danger);border-color:var(--danger)}
+/* overlay / modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.overlay.open{display:block}
+.mbox{background:#fff;border-radius:12px;max-width:560px;width:calc(100% - 24px);margin:16px auto;position:relative;overflow:hidden}
+.mclose{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.9);border:none;font-size:20px;cursor:pointer;color:var(--muted);z-index:10;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.mclose:hover{color:var(--text)}
+.mimg-wrap{position:relative;background:#f0ede8;min-height:80px}
+.mimg{width:100%;max-height:320px;object-fit:cover;display:block}
+.mimg-nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px}
+.mnav{background:rgba(255,255,255,.75);border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mdots{position:absolute;bottom:7px;left:0;right:0;display:flex;justify-content:center;gap:5px}
+.mdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.15);cursor:pointer}
+.mdot.a{background:#fff}
+.mbody{padding:16px 18px}
+.mtitle{font-size:16px;font-weight:500;margin-bottom:2px}
+.mroom{font-size:11px;color:var(--muted);margin-bottom:10px}
+.mprice{font-size:21px;font-weight:500;color:var(--primary);margin-bottom:2px}
+.morig{font-size:11px;color:var(--muted);margin-bottom:12px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.spec{background:var(--light);border-radius:6px;padding:7px 9px}
+.slabel{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:500}
+.sval{font-size:12px;font-weight:500;margin-top:2px}
+.mdesc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:10px}
+.cform{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.cform h3{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;color:var(--muted)}
+.cform input,.cform textarea,.cform select,.efield{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;margin-bottom:6px;background:var(--bg)}
+.cform input:focus,.cform textarea:focus,.efield:focus{outline:none;border-color:var(--primary);background:#f6f9fd}
+.cform textarea{min-height:60px;resize:vertical}
+.cform button,.primary-btn{width:100%;padding:9px;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer}
+.cform button:hover,.primary-btn:hover{background:#4a6a8f}
+.ok-msg{background:#eef5e8;border:1px solid #a5c895;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--success);margin-bottom:7px;display:none}
+.err-msg{background:#fde8e8;border:1px solid #e8a5a5;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--danger);margin-bottom:7px;display:none}
+/* admin login overlay */
+.login-box{background:#fff;border-radius:12px;max-width:360px;width:calc(100% - 40px);margin:80px auto;padding:28px;text-align:center}
+.login-box h2{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--admin)}
+.login-box p{font-size:12px;color:var(--muted);margin-bottom:16px}
+.login-box input{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:10px;font-family:inherit}
+.login-box input:focus{outline:none;border-color:var(--admin)}
+.login-box button{width:100%;padding:10px;background:var(--admin);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-weight:500}
+.login-err{color:var(--danger);font-size:11px;margin-bottom:6px}
+/* edit modal */
+.edit-modal .mbody{padding:14px 16px}
+.edit-modal h2{font-size:14px;font-weight:500;color:var(--admin);margin-bottom:14px}
+.field-group{margin-bottom:8px}
+.field-group label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);display:block;margin-bottom:3px}
+.field-group input,.field-group textarea,.field-group select{width:100%;padding:7px 9px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:#fff}
+.field-group textarea{min-height:65px;resize:vertical}
+.img-preview-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px}
+.img-thumb{width:70px;height:60px;object-fit:cover;border-radius:5px;border:1px solid var(--border);position:relative;cursor:pointer}
+.img-remove{position:absolute;top:-5px;right:-5px;background:var(--danger);color:#fff;border:none;border-radius:50%;width:17px;height:17px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.img-thumb-wrap{position:relative;display:inline-block}
+.upload-btn{padding:7px 13px;font-size:11px;border:1.5px dashed var(--admin);background:#faf8ff;color:var(--admin);border-radius:6px;cursor:pointer;font-weight:500;display:inline-block}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:580px){.specs{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:340px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <h1>Moving Out Sale <em>Manhattan → Tel Aviv</em></h1>
+    <div class="hadmin">
+      <span id="admin-badge" style="display:none;font-size:11px;background:#f3eeff;color:var(--admin);padding:3px 9px;border-radius:12px;font-weight:500">Admin mode</span>
+      <button class="btn-sm" id="admin-btn" onclick="toggleAdminFlow()">Admin</button>
+    </div>
+  </div>
+  <div class="filters" id="fbar">
+    <button class="pill on" data-r="all">All</button>
+    <button class="pill" data-r="Living Room">Living Room</button>
+    <button class="pill" data-r="Kids Room">Kids Room</button>
+    <button class="pill" data-r="Dining Room">Dining</button>
+    <button class="pill" data-r="Master Bedroom">Bedroom</button>
+    <button class="pill" data-r="Entrance">Entrance</button>
+    <button class="pill" data-r="Plants">Plants</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="overlay" id="view-ov">
+  <div class="mbox">
+    <button class="mclose" onclick="closeAll()">×</button>
+    <div class="mimg-wrap" id="v-img-wrap">
+      <img class="mimg" id="v-img" src="" alt="" style="display:none">
+      <div class="mimg-nav">
+        <button class="mnav" id="v-prev" onclick="navImg(-1)" style="display:none">‹</button>
+        <button class="mnav" id="v-next" onclick="navImg(1)" style="display:none">›</button>
+      </div>
+      <div class="mdots" id="v-dots"></div>
+    </div>
+    <div class="mbody">
+      <div class="mtitle" id="v-title"></div>
+      <div class="mroom" id="v-room"></div>
+      <div class="mprice" id="v-price"></div>
+      <div class="morig" id="v-orig"></div>
+      <div class="specs" id="v-specs"></div>
+      <div class="mdesc" id="v-desc"></div>
+      <div class="cform" id="v-cform">
+        <h3>Interested? Send a message</h3>
+        <div class="ok-msg" id="v-ok">✓ Message sent! We'll be in touch soon.</div>
+        <div class="err-msg" id="v-err">Something went wrong. Please try again or email marcusyaki@gmail.com</div>
+        <input type="text" id="v-name" placeholder="Your name">
+        <input type="email" id="v-email" placeholder="Your email">
+        <textarea id="v-msg" placeholder="Questions or offer?"></textarea>
+        <button onclick="sendMsg()">Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN OVERLAY -->
+<div class="overlay" id="login-ov">
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <p>Enter the admin password to edit listings</p>
+    <div class="login-err" id="login-err"></div>
+    <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Log in</button>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="overlay" id="edit-ov">
+  <div class="mbox edit-modal">
+    <button class="mclose" onclick="closeAll()">×</button>
+    <div class="mbody">
+      <h2 id="edit-title-header">Edit listing</h2>
+      <div class="field-group">
+        <label>Item name</label>
+        <input type="text" id="e-name">
+      </div>
+      <div class="two-col">
+        <div class="field-group">
+          <label>Asking price ($)</label>
+          <input type="number" id="e-price">
+        </div>
+        <div class="field-group">
+          <label>Original price ($)</label>
+          <input type="number" id="e-orig" placeholder="optional">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Room / category</label>
+        <select id="e-room">
+          <option>Living Room</option>
+          <option>Dining Room</option>
+          <option>Master Bedroom</option>
+          <option>Kids Room</option>
+          <option>Entrance</option>
+          <option>Plants</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="two-col">
+        <div class="field-group">
+          <label>Dimensions</label>
+          <input type="text" id="e-dims">
+        </div>
+        <div class="field-group">
+          <label>Color / finish</label>
+          <input type="text" id="e-color">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Description</label>
+        <textarea id="e-desc"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Photos</label>
+        <div class="img-preview-row" id="e-img-row"></div>
+        <label class="upload-btn">
+          + Add photos
+          <input type="file" accept="image/*" multiple style="display:none" onchange="handleImgUpload(event)">
+        </label>
+        <div style="font-size:10px;color:var(--muted);margin-top:5px">Click image to remove. Photos are stored locally in this session.</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="primary-btn" onclick="saveEdit()" style="background:var(--admin)">Save changes</button>
+        <button class="primary-btn" onclick="closeAll()" style="background:var(--light);color:var(--text);border:1px solid var(--border)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────
+const ADMIN_PASSWORD = 'naama2025';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzzblgyz'; // <-- replace with your Formspree form ID
+
+// ── STATE ─────────────────────────────────────────────────────
+let isAdmin = false;
+let activeRoom = 'all';
+let viewItem = null, viewImgIdx = 0;
+let editItem = null;
+
+// ── DATA ──────────────────────────────────────────────────────
+const imgUrls = {
+  1:'https://i.ibb.co/mCL0j04x/Whats-App-Image-2026-05-18-at-15-53-23-1.jpg',
+  2:'https://i.ibb.co/HDh8JNvC/Whats-App-Image-2026-05-18-at-15-53-23-2.jpg',
+  3:'https://i.ibb.co/JFqt1Jxt/Whats-App-Image-2026-05-18-at-15-53-23.jpg',
+  4:'https://i.ibb.co/KcyZsTx7/Whats-App-Image-2026-05-18-at-15-53-25.jpg',
+  5:'https://i.ibb.co/LXyGq2jL/Whats-App-Image-2026-05-18-at-15-53-34-1.jpg',
+  6:'https://i.ibb.co/RkvM0SGf/Whats-App-Image-2026-05-18-at-15-53-34-2.jpg',
+  7:'https://i.ibb.co/GQ9W1fHw/Whats-App-Image-2026-05-18-at-15-53-34-3.jpg',
+  8:'https://i.ibb.co/BHmxZDMr/Whats-App-Image-2026-05-18-at-15-53-34-4.jpg',
+  9:'https://i.ibb.co/mrkpMXBb/Whats-App-Image-2026-05-18-at-15-53-34-5.jpg',
+  10:'https://i.ibb.co/PzxvGk6d/Whats-App-Image-2026-05-18-at-15-53-34-6.jpg',
+  11:'https://i.ibb.co/7t6fFFPV/Whats-App-Image-2026-05-18-at-15-53-34-7.jpg',
+  12:'https://i.ibb.co/jP4Wcf9g/Whats-App-Image-2026-05-18-at-15-53-34-8.jpg',
+  13:'https://i.ibb.co/3yhk58Dv/Whats-App-Image-2026-05-18-at-15-53-34-9.jpg',
+  14:'https://i.ibb.co/zHh9KH4Q/Whats-App-Image-2026-05-18-at-15-53-34.jpg',
+  15:'https://i.ibb.co/4Bq6Y0Q/Whats-App-Image-2026-05-18-at-15-53-35-1.jpg',
+  16:'https://i.ibb.co/ZR83fCsW/Whats-App-Image-2026-05-18-at-15-53-35-2.jpg',
+  17:'https://i.ibb.co/ksVmRfzY/Whats-App-Image-2026-05-18-at-15-53-35-3.jpg',
+  18:'https://i.ibb.co/xSF6W03S/Whats-App-Image-2026-05-18-at-15-53-35-4.jpg',
+  19:'https://i.ibb.co/WWgb8gyx/Whats-App-Image-2026-05-18-at-15-53-35-5.jpg',
+  20:'https://i.ibb.co/7tWXT5BQ/Whats-App-Image-2026-05-18-at-15-53-35-6.jpg',
+  21:'https://i.ibb.co/Qv0ZnQmW/Whats-App-Image-2026-05-18-at-15-53-35-7.jpg',
+  22:'https://i.ibb.co/G4vQQT6q/Whats-App-Image-2026-05-18-at-15-53-35-8.jpg',
+  23:'https://i.ibb.co/tTvZztxk/Whats-App-Image-2026-05-18-at-15-53-35-9.jpg',
+  24:'https://i.ibb.co/Q3QsX4mQ/Whats-App-Image-2026-05-18-at-15-53-35.jpg',
+  25:'https://i.ibb.co/Gf3TMGzZ/Whats-App-Image-2026-05-18-at-15-53-36-1.jpg',
+  26:'https://i.ibb.co/3bQrhmy/Whats-App-Image-2026-05-18-at-15-53-36-2.jpg',
+  27:'https://i.ibb.co/dwknb7Ny/Whats-App-Image-2026-05-18-at-15-53-36-3.jpg',
+  28:'https://i.ibb.co/5gHTHrcm/Whats-App-Image-2026-05-18-at-15-53-36-4.jpg',
+  29:'https://i.ibb.co/WWx8cpSM/Whats-App-Image-2026-05-18-at-15-53-36-5.jpg',
+  30:'https://i.ibb.co/KzLqZ11C/Whats-App-Image-2026-05-18-at-15-53-36-6.jpg',
+  31:'https://i.ibb.co/931QN0yS/Whats-App-Image-2026-05-18-at-15-53-36-7.jpg',
+  32:'https://i.ibb.co/C3Gg2jpQ/Whats-App-Image-2026-05-18-at-15-53-36.jpg',
+};
+function gdUrl(id){return imgUrls[id]||'';}
+
+let items = [
+  {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,sold:false,imgIds:[1],localImgs:[]},
+  {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,sold:false,imgIds:[2],localImgs:[]},
+  {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,sold:false,imgIds:[3],localImgs:[]},
+  {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29" · Chairs W19"×D21"×H36"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably. Minor surface marks.',link:'https://www.article.com',sold:false,imgIds:[12,19,20],localImgs:[]},
+  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer. Excellent build quality.',link:'https://www.article.com',sold:false,imgIds:[13,17,18],localImgs:[]},
+  {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:null,sold:false,imgIds:[5],localImgs:[]},
+  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" rod · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,sold:false,imgIds:[6],localImgs:[]},
+  {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:'https://www.article.com/product/16708/lenia-white-oak-queen-bed',sold:false,imgIds:[4,14],localImgs:[]},
+  {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass metal',desc:'Sleek full-length wall mirror with slim brushed gold frame, softly rounded corners.',link:null,sold:false,imgIds:[9,10],localImgs:[]},
+  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8" shade',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,sold:false,imgIds:[7],localImgs:[]},
+  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,sold:false,imgIds:[8],localImgs:[]},
+  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32" · Seat H18"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs. Deep comfortable seats.',link:'https://www.castlery.com',sold:false,imgIds:[21,22],localImgs:[]},
+  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,sold:false,imgIds:[23,24],localImgs:[]},
+  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile, easy to clean.',link:null,sold:false,imgIds:[25,26],localImgs:[]},
+  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,sold:false,imgIds:[27,28],localImgs:[]},
+  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf. Wipe-clean covers.',link:'https://www.gathre.com',sold:false,imgIds:[29,30],localImgs:[]},
+  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,sold:false,imgIds:[31],localImgs:[]},
+  {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins. Great toy bench or mud room storage.',link:null,sold:false,imgIds:[32],localImgs:[]},
+  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48" · Mirror W18"×H36"',color:'Oak + rattan / black oval frame',desc:'Slim oak + rattan shoe cabinet with 2 flip-down doors and top drawer, plus matching black oval wall mirror.',link:null,sold:false,imgIds:[11,15],localImgs:[]},
+  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench. Lightweight and minimal.',link:null,sold:false,imgIds:[16],localImgs:[]},
+];
+
+// ── HELPERS ───────────────────────────────────────────────────
+function allImgs(item){
+  const gd = (item.imgIds||[]).map(id=>gdUrl(id));
+  const local = (item.localImgs||[]);
+  return [...local,...gd];
+}
+function firstImg(item){const all=allImgs(item);return all.length?all[0]:null;}
+
+// ── RENDER GRID ───────────────────────────────────────────────
+function renderGrid(room){
+  const grid=document.getElementById('grid');
+  const list=room==='all'?items:items.filter(i=>i.room===room);
+  grid.innerHTML=list.map(item=>{
+    const img=firstImg(item);
+    return `<div class="card${item.sold?' sold':''}${isAdmin?' admin-mode':''}" id="card-${item.id}" ${isAdmin?'':`onclick="openView('${item.id}')"`}>
+      ${img?`<img class="thumb" src="${img}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>No image</div>'">`:'<div class="no-img">No photo yet</div>'}
+      <div class="cbody">
+        <div class="rtag">${item.room}</div>
+        <div class="cname">${item.name}${item.sold?'<span class="sold-label">Sold</span>':''}</div>
+        <div class="cprice">$${item.price}${item.orig?`<span class="orig">$${item.orig}</span>`:''}</div>
+        <div class="dims">${item.dims}</div>
+        <div class="cdesc">${item.desc.slice(0,90)}…</div>
+      </div>
+      ${isAdmin?`<div class="admin-toolbar show">
+        <button class="abt edit" onclick="openEdit('${item.id}')">✏ Edit</button>
+        <button class="abt sold-tog${item.sold?' is-sold':''}" onclick="toggleSold('${item.id}')">${item.sold?'↩ Unsold':'✓ Mark sold'}</button>
+        <button class="abt del" onclick="delItem('${item.id}')">✕ Delete</button>
+      </div>`:
+      `<div class="cfooter"><button class="btn bp" onclick="openView('${item.id}')">View & Contact</button></div>`}
+    </div>`;
+  }).join('');
+}
+
+// ── VIEW MODAL ─────────────────────────────────────────────────
+function openView(id){
+  viewItem=items.find(i=>i.id===id);
+  if(!viewItem)return;
+  viewImgIdx=0;
+  renderViewImgs();
+  document.getElementById('v-title').innerHTML=viewItem.name+(viewItem.sold?'<span class="sold-label">Sold</span>':'');
+  document.getElementById('v-room').textContent=viewItem.room+(viewItem.sold?' · No longer available':'');
+  document.getElementById('v-price').textContent='$'+viewItem.price;
+  document.getElementById('v-orig').textContent=viewItem.orig?`Retail: $${viewItem.orig} · You save $${viewItem.orig-viewItem.price}`:'';
+  document.getElementById('v-specs').innerHTML=`
+    <div class="spec"><div class="slabel">Dimensions</div><div class="sval">${viewItem.dims}</div></div>
+    <div class="spec"><div class="slabel">Color</div><div class="sval">${viewItem.color}</div></div>
+    <div class="spec"><div class="slabel">Price</div><div class="sval">$${viewItem.price}</div></div>
+    <div class="spec"><div class="slabel">Photos</div><div class="sval">${allImgs(viewItem).length}</div></div>`;
+  document.getElementById('v-desc').textContent=viewItem.desc;
+  document.getElementById('v-cform').style.display=viewItem.sold?'none':'block';
+  document.getElementById('v-msg').value=`Hi! I'm interested in the ${viewItem.name} ($${viewItem.price}). Is it still available?`;
+  document.getElementById('v-ok').style.display='none';
+  document.getElementById('v-err').style.display='none';
+  document.getElementById('view-ov').classList.add('open');
+}
+function renderViewImgs(){
+  const imgs=allImgs(viewItem);
+  const imgEl=document.getElementById('v-img');
+  const wrap=document.getElementById('v-img-wrap');
+  if(imgs.length){
+    imgEl.style.display='block';
+    imgEl.src=imgs[viewImgIdx];
+    wrap.style.minHeight='';
+  } else {
+    imgEl.style.display='none';
+    wrap.style.minHeight='0';
+  }
+  document.getElementById('v-prev').style.display=imgs.length>1?'flex':'none';
+  document.getElementById('v-next').style.display=imgs.length>1?'flex':'none';
+  const dots=document.getElementById('v-dots');
+  dots.innerHTML=imgs.length>1?imgs.map((_,i)=>`<div class="mdot${i===viewImgIdx?' a':''}" onclick="setViewImg(${i})"></div>`).join(''):'';
+}
+function navImg(d){const imgs=allImgs(viewItem);viewImgIdx=(viewImgIdx+d+imgs.length)%imgs.length;setViewImg(viewImgIdx);}
+function setViewImg(i){viewImgIdx=i;const imgs=allImgs(viewItem);document.getElementById('v-img').src=imgs[i];document.querySelectorAll('#v-dots .mdot').forEach((d,j)=>d.classList.toggle('a',j===i));}
+
+// ── SEND MESSAGE via Formspree ─────────────────────────────────
+async function sendMsg(){
+  const name=document.getElementById('v-name').value.trim();
+  const email=document.getElementById('v-email').value.trim();
+  const msg=document.getElementById('v-msg').value.trim();
+  const okEl=document.getElementById('v-ok');
+  const errEl=document.getElementById('v-err');
+  if(!name||!email||!msg){alert('Please fill in all fields.');return;}
+  const btn=document.querySelector('#v-cform button');
+  btn.disabled=true;btn.textContent='Sending…';
+  okEl.style.display='none';errEl.style.display='none';
+  try{
+    const r=await fetch(FORMSPREE_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        name,email,message:msg,
+        item:viewItem.name,
+        price:'$'+viewItem.price,
+        _subject:`Moving sale inquiry: ${viewItem.name}`
+      })
+    });
+    if(r.ok){
+      okEl.style.display='block';
+      document.getElementById('v-name').value='';
+      document.getElementById('v-email').value='';
+      document.getElementById('v-msg').value='';
+    } else {
+      errEl.style.display='block';
+    }
+  } catch(e){errEl.style.display='block';}
+  btn.disabled=false;btn.textContent='Send Message';
+}
+
+// ── ADMIN LOGIN ─────────────────────────────────────────────────
+function toggleAdminFlow(){
+  if(isAdmin){logoutAdmin();} else {document.getElementById('login-ov').classList.add('open');setTimeout(()=>document.getElementById('pw-input').focus(),50);}
+}
+function doLogin(){
+  const pw=document.getElementById('pw-input').value;
+  if(pw===ADMIN_PASSWORD){
+    isAdmin=true;
+    document.getElementById('login-ov').classList.remove('open');
+    document.getElementById('pw-input').value='';
+    document.getElementById('login-err').textContent='';
+    document.getElementById('admin-btn').textContent='Log out';
+    document.getElementById('admin-btn').classList.add('admin-on');
+    document.getElementById('admin-badge').style.display='inline';
+    renderGrid(activeRoom);
+  } else {
+    document.getElementById('login-err').textContent='Incorrect password.';
+  }
+}
+function logoutAdmin(){
+  isAdmin=false;
+  document.getElementById('admin-btn').textContent='Admin';
+  document.getElementById('admin-btn').classList.remove('admin-on');
+  document.getElementById('admin-badge').style.display='none';
+  renderGrid(activeRoom);
+}
+
+// ── EDIT MODAL ─────────────────────────────────────────────────
+function openEdit(id){
+  editItem=items.find(i=>i.id===id);
+  if(!editItem)return;
+  document.getElementById('edit-title-header').textContent='Edit: '+editItem.name;
+  document.getElementById('e-name').value=editItem.name;
+  document.getElementById('e-price').value=editItem.price;
+  document.getElementById('e-orig').value=editItem.orig||'';
+  document.getElementById('e-room').value=editItem.room;
+  document.getElementById('e-dims').value=editItem.dims;
+  document.getElementById('e-color').value=editItem.color;
+  document.getElementById('e-desc').value=editItem.desc;
+  renderEditImgs();
+  document.getElementById('edit-ov').classList.add('open');
+}
+function renderEditImgs(){
+  const row=document.getElementById('e-img-row');
+  const local=editItem.localImgs||[];
+  const gd=(editItem.imgIds||[]).map(id=>({src:gdUrl(id),type:'gd',id}));
+  const all=[...local.map((src,i)=>({src,type:'local',i})),...gd];
+  row.innerHTML=all.map(img=>`
+    <div class="img-thumb-wrap">
+      <img class="img-thumb" src="${img.src}" onerror="this.src=''">
+      <button class="img-remove" onclick="removeImg('${img.type}','${img.type==='local'?img.i:img.id}')">×</button>
+    </div>`).join('');
+}
+function removeImg(type,ref){
+  if(type==='local'){
+    editItem.localImgs.splice(parseInt(ref),1);
+  } else {
+    editItem.imgIds=editItem.imgIds.filter(id=>String(id)!==String(ref));
+  }
+  renderEditImgs();
+}
+function handleImgUpload(e){
+  const files=Array.from(e.target.files);
+  files.forEach(f=>{
+    const r=new FileReader();
+    r.onload=ev=>{editItem.localImgs.push(ev.target.result);renderEditImgs();};
+    r.readAsDataURL(f);
+  });
+  e.target.value='';
+}
+function saveEdit(){
+  editItem.name=document.getElementById('e-name').value.trim()||editItem.name;
+  editItem.price=parseFloat(document.getElementById('e-price').value)||editItem.price;
+  const op=document.getElementById('e-orig').value;
+  editItem.orig=op?parseFloat(op):null;
+  editItem.room=document.getElementById('e-room').value;
+  editItem.dims=document.getElementById('e-dims').value.trim();
+  editItem.color=document.getElementById('e-color').value.trim();
+  editItem.desc=document.getElementById('e-desc').value.trim();
+  closeAll();
+  renderGrid(activeRoom);
+}
+
+// ── MARK SOLD / DELETE ─────────────────────────────────────────
+function toggleSold(id){
+  const item=items.find(i=>i.id===id);
+  if(!item)return;
+  item.sold=!item.sold;
+  renderGrid(activeRoom);
+}
+function delItem(id){
+  if(!confirm('Delete this listing?'))return;
+  items=items.filter(i=>i.id!==id);
+  renderGrid(activeRoom);
+}
+
+// ── CLOSE ─────────────────────────────────────────────────────
+function closeAll(){
+  document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('open'));
+}
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o)closeAll();});
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+
+// ── FILTERS ───────────────────────────────────────────────────
+document.getElementById('fbar').addEventListener('click',e=>{
+  if(!e.target.dataset.r)return;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  e.target.classList.add('on');
+  activeRoom=e.target.dataset.r;
+  renderGrid(activeRoom);
+});
+
+// ── INIT ──────────────────────────────────────────────────────
+renderGrid('all');
+</script>
+</body>
+</html>
