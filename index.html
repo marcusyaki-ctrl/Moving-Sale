@@ -3,19 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Naama & Yaki – Moving Out Sale</title>
+<title>Moving Out Sale</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#fafaf8;--card:#fff;--border:#e8e8e8;--primary:#5c7a9f;--accent:#8b7355;
-  --success:#6b8f5e;--text:#2d2d2d;--muted:#7a7a7a;--light:#f4f6fa;--danger:#9b6b5e;
-  --admin:#7c5cbf;
+  --bg:#fafaf8;--card:#fff;--border:#e8e8e8;--primary:#5c7a9f;
+  --success:#6b8f5e;--text:#2d2d2d;--muted:#7a7a7a;--light:#f4f6fa;
+  --danger:#9b6b5e;--admin:#7c5cbf;
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
 header{background:#fff;border-bottom:1px solid var(--border);padding:14px 0 8px;position:sticky;top:0;z-index:100}
 .hrow{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 h1{font-size:18px;font-weight:500;color:var(--primary)}
-h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 .hadmin{display:flex;gap:8px;align-items:center}
 .btn-sm{padding:5px 12px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;font-weight:500;color:var(--text)}
 .btn-sm.admin-on{background:var(--admin);color:#fff;border-color:var(--admin)}
@@ -23,27 +22,30 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 .pill{padding:4px 11px;border:1px solid var(--border);border-radius:20px;background:#fff;font-size:12px;cursor:pointer;color:var(--text);transition:.15s}
 .pill.on{background:var(--primary);color:#fff;border-color:var(--primary)}
 .wrap{max-width:1100px;margin:0 auto;padding:14px 16px 40px}
-/* admin top bar */
 .admin-topbar{display:none;background:#f3eeff;border:1px solid #d8caff;border-radius:8px;padding:10px 14px;margin-bottom:14px;align-items:center;gap:10px;flex-wrap:wrap}
 .admin-topbar.show{display:flex}
 .admin-topbar span{font-size:11px;color:var(--admin);font-weight:600}
+.saving-indicator{font-size:11px;color:var(--admin);display:none}
+.saving-indicator.show{display:inline}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-/* card */
 .card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:.18s;cursor:pointer;position:relative}
 .card:hover{box-shadow:0 3px 14px rgba(0,0,0,.09);border-color:#b8ccdf;transform:translateY(-1px)}
 .card.sold{opacity:.45;pointer-events:none}
 .card.admin-mode{cursor:default;border:1.5px dashed var(--admin)}
 .card.admin-mode:hover{transform:none;box-shadow:none}
-.card.dragging{opacity:.4;border:2px dashed var(--admin)}
+.card.dragging{opacity:.35}
 .card.drag-over{border:2px solid var(--admin);background:#f8f5ff}
-.drag-handle{position:absolute;top:8px;left:8px;background:rgba(124,92,191,.85);color:#fff;border-radius:5px;padding:3px 6px;font-size:13px;cursor:grab;z-index:5;display:none;user-select:none;line-height:1}
+.drag-handle{position:absolute;top:8px;left:8px;background:rgba(124,92,191,.85);color:#fff;border-radius:5px;padding:3px 6px;font-size:13px;cursor:grab;z-index:5;display:none;user-select:none}
 .card.admin-mode .drag-handle{display:block}
-.drag-handle:active{cursor:grabbing}
-.thumb-wrap{position:relative}
-.thumb{width:100%;height:200px;object-fit:cover;display:block;background:#f0ede8}
-.no-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:#f0ede8;color:var(--muted);font-size:12px;flex-direction:column;gap:6px}
-.main-pic-btn{position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:5px;padding:3px 7px;font-size:10px;cursor:pointer;display:none}
+.thumb-wrap{position:relative;overflow:hidden}
+.thumb{width:100%;height:200px;object-fit:cover;display:block;background:#f0ede8;transition:.2s}
+.thumb:hover{opacity:.92}
+.zoom-btn{position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.5);color:#fff;border:none;border-radius:5px;padding:3px 8px;font-size:11px;cursor:pointer;display:none;z-index:3}
+.thumb-wrap:hover .zoom-btn{display:block}
+.main-pic-btn{position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:5px;padding:3px 7px;font-size:10px;cursor:pointer;display:none;z-index:4}
+.card.admin-mode .thumb-wrap:hover .zoom-btn{display:none}
 .card.admin-mode .main-pic-btn{display:block}
+.no-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:#f0ede8;color:var(--muted);font-size:12px;flex-direction:column;gap:6px}
 .cbody{padding:12px 13px;flex:1;display:flex;flex-direction:column;gap:4px}
 .rtag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
 .cname{font-size:13px;font-weight:500;line-height:1.3}
@@ -52,11 +54,9 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 .dims{font-size:11px;color:var(--muted);background:var(--light);border-radius:4px;padding:2px 6px;display:inline-block}
 .cdesc{font-size:11px;color:var(--muted);line-height:1.4;margin-top:2px}
 .cfooter{padding:0 13px 12px;display:flex;gap:6px}
-.btn{flex:1;padding:7px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;transition:.15s;text-align:center;text-decoration:none;display:inline-block}
+.btn{flex:1;padding:7px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;transition:.15s;text-align:center}
 .bp{background:var(--primary);color:#fff}.bp:hover{background:#4a6a8f}
-.bs{background:var(--light);color:var(--primary);border:1px solid #d0dcea}
 .sold-label{background:#888;color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;text-transform:uppercase;margin-left:5px}
-/* admin card controls */
 .admin-toolbar{display:none;padding:8px 13px;background:#f8f5ff;border-top:1px solid #e0d8f5;gap:6px;flex-wrap:wrap}
 .admin-toolbar.show{display:flex}
 .abt{padding:4px 9px;font-size:11px;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:#fff;font-weight:500}
@@ -65,17 +65,16 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 .abt.sold-tog.is-sold{background:#888;color:#fff;border-color:#888}
 .abt.del{color:var(--danger);border-color:var(--danger)}
 /* overlays */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .overlay.open{display:block}
 .mbox{background:#fff;border-radius:12px;max-width:560px;width:calc(100% - 24px);margin:16px auto;position:relative;overflow:hidden}
 .mclose{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.9);border:none;font-size:20px;cursor:pointer;color:var(--muted);z-index:10;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.mclose:hover{color:var(--text)}
 .mimg-wrap{position:relative;background:#f0ede8;min-height:80px}
-.mimg{width:100%;max-height:320px;object-fit:cover;display:block}
-.mimg-nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px}
-.mnav{background:rgba(255,255,255,.75);border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.mdots{position:absolute;bottom:7px;left:0;right:0;display:flex;justify-content:center;gap:5px}
-.mdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.15);cursor:pointer}
+.mimg{width:100%;max-height:320px;object-fit:cover;display:block;cursor:zoom-in}
+.mimg-nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
+.mnav{background:rgba(255,255,255,.75);border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all}
+.mdots{position:absolute;bottom:7px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none}
+.mdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.15);cursor:pointer;pointer-events:all}
 .mdot.a{background:#fff}
 .mbody{padding:16px 18px}
 .mtitle{font-size:16px;font-weight:500;margin-bottom:2px}
@@ -89,17 +88,15 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 .mdesc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:10px}
 .mlink-row{margin-bottom:10px}
 .mlink-row a{font-size:12px;color:var(--primary);text-decoration:none}
-.mlink-row a:hover{text-decoration:underline}
 .cform{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
 .cform h3{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;color:var(--muted)}
 .cform input,.cform textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;margin-bottom:6px;background:var(--bg)}
-.cform input:focus,.cform textarea:focus{outline:none;border-color:var(--primary);background:#f6f9fd}
+.cform input:focus,.cform textarea:focus{outline:none;border-color:var(--primary)}
 .cform textarea{min-height:60px;resize:vertical}
 .cform button,.primary-btn{width:100%;padding:9px;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer}
-.cform button:hover,.primary-btn:hover{background:#4a6a8f}
 .ok-msg{background:#eef5e8;border:1px solid #a5c895;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--success);margin-bottom:7px;display:none}
 .err-msg{background:#fde8e8;border:1px solid #e8a5a5;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--danger);margin-bottom:7px;display:none}
-/* admin login */
+/* login */
 .login-box{background:#fff;border-radius:12px;max-width:360px;width:calc(100% - 40px);margin:80px auto;padding:28px;text-align:center}
 .login-box h2{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--admin)}
 .login-box p{font-size:12px;color:var(--muted);margin-bottom:16px}
@@ -116,14 +113,27 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 .field-group textarea{min-height:65px;resize:vertical}
 .img-preview-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px}
 .img-thumb-wrap{position:relative;display:inline-block}
-.img-thumb{width:70px;height:60px;object-fit:cover;border-radius:5px;border:2px solid var(--border);cursor:pointer;transition:.15s}
+.img-thumb{width:70px;height:60px;object-fit:cover;border-radius:5px;border:2px solid var(--border);cursor:pointer}
 .img-thumb.is-main{border-color:var(--admin);box-shadow:0 0 0 2px var(--admin)}
-.img-thumb-wrap .star{position:absolute;top:-5px;left:-5px;background:var(--admin);color:#fff;border-radius:50%;width:16px;height:16px;font-size:9px;display:none;align-items:center;justify-content:center}
-.img-thumb.is-main+.star,.img-thumb-wrap.is-main .star{display:flex}
-.img-remove{position:absolute;top:-5px;right:-5px;background:var(--danger);color:#fff;border:none;border-radius:50%;width:17px;height:17px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.img-star{position:absolute;top:-5px;left:-5px;background:var(--admin);color:#fff;border-radius:50%;width:16px;height:16px;font-size:9px;display:none;align-items:center;justify-content:center}
+.img-thumb.is-main ~ .img-star{display:flex}
+.img-remove{position:absolute;top:-5px;right:-5px;background:var(--danger);color:#fff;border:none;border-radius:50%;width:17px;height:17px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .upload-btn{padding:7px 13px;font-size:11px;border:1.5px dashed var(--admin);background:#faf8ff;color:var(--admin);border-radius:6px;cursor:pointer;font-weight:500;display:inline-block}
 .img-hint{font-size:10px;color:var(--muted);margin-top:5px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* fullscreen image */
+.fs-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:999;align-items:center;justify-content:center;flex-direction:column}
+.fs-overlay.open{display:flex}
+.fs-img{max-width:95vw;max-height:88vh;object-fit:contain;border-radius:4px}
+.fs-close{position:absolute;top:14px;right:18px;color:#fff;font-size:28px;cursor:pointer;background:none;border:none;opacity:.8}
+.fs-close:hover{opacity:1}
+.fs-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.fs-nav:hover{background:rgba(255,255,255,.3)}
+.fs-prev{left:12px}.fs-next{right:12px}
+.fs-dots{position:absolute;bottom:16px;display:flex;gap:6px}
+.fs-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.3);cursor:pointer}
+.fs-dot.a{background:#fff}
+.fs-counter{position:absolute;top:16px;left:18px;color:rgba(255,255,255,.6);font-size:12px}
 @media(max-width:580px){.specs{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
 @media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
 @media(max-width:340px){.grid{grid-template-columns:1fr}}
@@ -135,7 +145,8 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
   <div class="hrow">
     <h1>Moving Out Sale</h1>
     <div class="hadmin">
-      <span id="admin-badge" style="display:none;font-size:11px;background:#f3eeff;color:var(--admin);padding:3px 9px;border-radius:12px;font-weight:500">Admin mode</span>
+      <span id="admin-badge" style="display:none;font-size:11px;background:#f3eeff;color:var(--admin);padding:3px 9px;border-radius:12px;font-weight:500">Admin</span>
+      <span class="saving-indicator" id="saving-ind">💾 Saving…</span>
       <button class="btn-sm" id="admin-btn" onclick="toggleAdminFlow()">Admin</button>
     </div>
   </div>
@@ -152,19 +163,20 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 
 <div class="wrap">
   <div class="admin-topbar" id="admin-topbar">
-    <span>⚙ Admin controls</span>
+    <span>⚙ Admin</span>
     <button class="abt edit" onclick="openNewItem()">+ Add new item</button>
-    <span style="font-size:10px;color:var(--muted);margin-left:4px">✥ Drag cards to reorder</span>
+    <span style="font-size:10px;color:var(--muted)">✥ Drag cards to reorder</span>
   </div>
-  <div class="grid" id="grid"></div>
+  <div id="loading" style="padding:40px;text-align:center;color:var(--muted);font-size:13px">Loading listings…</div>
+  <div class="grid" id="grid" style="display:none"></div>
 </div>
 
 <!-- VIEW MODAL -->
 <div class="overlay" id="view-ov">
   <div class="mbox">
-    <button class="mclose" onclick="closeAll()">×</button>
+    <button class="mclose" onclick="closeModal('view-ov')">×</button>
     <div class="mimg-wrap" id="v-img-wrap">
-      <img class="mimg" id="v-img" src="" alt="" style="display:none">
+      <img class="mimg" id="v-img" src="" alt="" style="display:none" onclick="openFS(viewImgIdx)">
       <div class="mimg-nav">
         <button class="mnav" id="v-prev" onclick="navImg(-1)" style="display:none">‹</button>
         <button class="mnav" id="v-next" onclick="navImg(1)" style="display:none">›</button>
@@ -192,6 +204,16 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
   </div>
 </div>
 
+<!-- FULLSCREEN IMAGE -->
+<div class="fs-overlay" id="fs-ov" onclick="handleFsClick(event)">
+  <button class="fs-close" onclick="closeModal('fs-ov')">×</button>
+  <span class="fs-counter" id="fs-counter"></span>
+  <button class="fs-nav fs-prev" onclick="fsNav(-1);event.stopPropagation()">‹</button>
+  <img class="fs-img" id="fs-img" src="" alt="">
+  <button class="fs-nav fs-next" onclick="fsNav(1);event.stopPropagation()">›</button>
+  <div class="fs-dots" id="fs-dots"></div>
+</div>
+
 <!-- ADMIN LOGIN -->
 <div class="overlay" id="login-ov">
   <div class="login-box">
@@ -203,94 +225,59 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
   </div>
 </div>
 
-<!-- EDIT / NEW ITEM MODAL -->
+<!-- EDIT MODAL -->
 <div class="overlay" id="edit-ov">
   <div class="mbox edit-modal">
-    <button class="mclose" onclick="closeAll()">×</button>
+    <button class="mclose" onclick="cancelEdit()">×</button>
     <div class="mbody">
       <h2 id="edit-title-header">Edit listing</h2>
-      <div class="field-group">
-        <label>Item name</label>
-        <input type="text" id="e-name">
+      <div class="field-group"><label>Item name</label><input type="text" id="e-name"></div>
+      <div class="two-col">
+        <div class="field-group"><label>Asking price ($)</label><input type="number" id="e-price"></div>
+        <div class="field-group"><label>Original price ($)</label><input type="number" id="e-orig" placeholder="optional"></div>
+      </div>
+      <div class="field-group"><label>Room</label>
+        <select id="e-room"><option>Living Room</option><option>Dining Room</option><option>Master Bedroom</option><option>Kids Room</option><option>Entrance</option><option>Plants</option><option>Other</option></select>
       </div>
       <div class="two-col">
-        <div class="field-group">
-          <label>Asking price ($)</label>
-          <input type="number" id="e-price">
-        </div>
-        <div class="field-group">
-          <label>Original price ($)</label>
-          <input type="number" id="e-orig" placeholder="optional">
-        </div>
+        <div class="field-group"><label>Dimensions</label><input type="text" id="e-dims"></div>
+        <div class="field-group"><label>Color / finish</label><input type="text" id="e-color"></div>
       </div>
+      <div class="field-group"><label>Description</label><textarea id="e-desc"></textarea></div>
+      <div class="field-group"><label>Link</label><input type="url" id="e-link" placeholder="https://..."></div>
       <div class="field-group">
-        <label>Room / category</label>
-        <select id="e-room">
-          <option>Living Room</option>
-          <option>Dining Room</option>
-          <option>Master Bedroom</option>
-          <option>Kids Room</option>
-          <option>Entrance</option>
-          <option>Plants</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="two-col">
-        <div class="field-group">
-          <label>Dimensions</label>
-          <input type="text" id="e-dims">
-        </div>
-        <div class="field-group">
-          <label>Color / finish</label>
-          <input type="text" id="e-color">
-        </div>
-      </div>
-      <div class="field-group">
-        <label>Description</label>
-        <textarea id="e-desc"></textarea>
-      </div>
-      <div class="field-group">
-        <label>Original listing link (optional)</label>
-        <input type="url" id="e-link" placeholder="https://...">
-      </div>
-      <div class="field-group">
-        <label>Photos <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(click thumbnail to set as main photo)</span></label>
+        <label>Photos <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:10px">(click to set as main)</span></label>
         <div class="img-preview-row" id="e-img-row"></div>
-        <label class="upload-btn">
-          + Add photos
-          <input type="file" accept="image/*" multiple style="display:none" onchange="handleImgUpload(event)">
-        </label>
-        <div class="img-hint">Click any photo to set it as the main (cover) image. Purple border = main photo.</div>
+        <label class="upload-btn">+ Add photos<input type="file" accept="image/*" multiple style="display:none" onchange="handleImgUpload(event)"></label>
+        <div class="img-hint">Purple border = main/cover photo.</div>
       </div>
       <div style="display:flex;gap:8px;margin-top:12px">
-        <button class="primary-btn" onclick="saveEdit()" style="background:var(--admin)">Save changes</button>
-        <button class="primary-btn" onclick="closeAll()" style="background:var(--light);color:var(--text);border:1px solid var(--border)">Cancel</button>
+        <button class="primary-btn" onclick="saveEdit()" style="background:var(--admin)">Save</button>
+        <button class="primary-btn" onclick="cancelEdit()" style="background:var(--light);color:var(--text);border:1px solid var(--border)">Cancel</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SET MAIN PIC MODAL -->
+<!-- SET MAIN PIC -->
 <div class="overlay" id="mainpic-ov">
   <div class="mbox">
-    <button class="mclose" onclick="closeAll()">×</button>
+    <button class="mclose" onclick="closeModal('mainpic-ov')">×</button>
     <div class="mbody">
       <h2 style="font-size:14px;font-weight:500;color:var(--admin);margin-bottom:12px">Set main photo</h2>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Click a photo to set it as the cover image shown on the card.</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Click a photo to set it as the cover image.</p>
       <div class="img-preview-row" id="mainpic-row" style="gap:10px"></div>
     </div>
   </div>
 </div>
 
 <script>
+// ── CONFIG ─────────────────────────────────────────────────────
 const ADMIN_PASSWORD = 'naama2025';
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzzblgyz';
-
-let isAdmin = false;
-let activeRoom = 'all';
-let viewItem = null, viewImgIdx = 0;
-let editItem = null;
-let dragSrcId = null;
+const FORMSPREE = 'https://formspree.io/f/xzzblgyz';
+const BIN_ID = '6a0f12d26877513b27ac995d';
+const API_KEY = '$2a$10$55HOYAX9a7f4VlUZCVM3GOWR3Jy7rNca7rMlX.X3axyp8zPQNLn.i';
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
 // ── IMAGE MAP ──────────────────────────────────────────────────
 const imgUrls = {
@@ -329,80 +316,115 @@ const imgUrls = {
 };
 function iUrl(id){return imgUrls[id]||'';}
 
-// ── DATA ──────────────────────────────────────────────────────
-const BIN_ID = '6a0f12d26877513b27ac995d';
-const API_KEY = '$2a$10$55HOYAX9a7f4VlUZCVM3GOWR3Jy7rNca7rMlX.X3axyp8zPQNLn.i';
-const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
-
-async function saveItems(){
-  try {
-    await fetch(BIN_URL, {
-      method: 'PUT',
-      headers: {'Content-Type':'application/json','X-Access-Key':API_KEY,'X-Bin-Versioning':'false'},
-      body: JSON.stringify({items})
-    });
-  } catch(e){ console.error('Save failed',e); }
-}
-
-async function loadItems(){
-  try {
-    const r = await fetch(BIN_URL+'/latest', {headers:{'X-Access-Key':API_KEY}});
-    const data = await r.json();
-    if(data.record && data.record.items && data.record.items.length){
-      items = data.record.items;
-    }
-  } catch(e){ console.error('Load failed',e); }
-}
-
-let items = [
+// ── DEFAULT ITEMS ──────────────────────────────────────────────
+const DEFAULT_ITEMS = [
   {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,sold:false,imgIds:[1],localImgs:[],mainImg:null},
   {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,sold:false,imgIds:[2],localImgs:[],mainImg:null},
   {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,sold:false,imgIds:[3],localImgs:[],mainImg:null},
   {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably.',link:'https://www.article.com/product/9289/seno-black-oval-dining-table',sold:false,imgIds:[12,19,20],localImgs:[],mainImg:null},
-  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer. Excellent build quality.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',sold:false,imgIds:[13,17,18],localImgs:[],mainImg:null},
+  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',sold:false,imgIds:[13,17,18],localImgs:[],mainImg:null},
   {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:'https://society6.com/art/palm-leaf',sold:false,imgIds:[5],localImgs:[],mainImg:null},
-  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" rod · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:'https://www.westelm.com/products/sculptural-glass-globe-sconce',sold:false,imgIds:[6],localImgs:[],mainImg:null},
+  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" rod · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,sold:false,imgIds:[6],localImgs:[],mainImg:null},
   {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:'https://www.article.com/product/16708/lenia-white-oak-queen-bed',sold:false,imgIds:[4,14],localImgs:[],mainImg:null},
   {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass metal',desc:'Sleek full-length wall mirror with slim brushed gold frame, softly rounded corners.',link:'https://www.zarahome.com/us/wooden-hanging-full-length-mirror-c0p320242500.html',sold:false,imgIds:[9,10],localImgs:[],mainImg:null},
-  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8" shade',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:'https://www.westelm.com/products/mid-century-adjustable-sconce',sold:false,imgIds:[7],localImgs:[],mainImg:null},
-  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:'https://www.cb2.com/arched-floor-lamp',sold:false,imgIds:[8],localImgs:[],mainImg:null},
-  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs. Deep comfortable seats.',link:'https://www.castlery.com/us/sofas/all-sofas',sold:false,imgIds:[21,22],localImgs:[],mainImg:null},
-  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:'https://www.urbanoutfitters.com/shop/tova-coffee-table',sold:false,imgIds:[23,24],localImgs:[],mainImg:null},
-  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile, easy to clean.',link:'https://www.rugsusa.com',sold:false,imgIds:[25,26],localImgs:[],mainImg:null},
-  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:'https://www.target.com/p/torchiere-floor-lamp',sold:false,imgIds:[27,28],localImgs:[],mainImg:null},
-  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf. Wipe-clean covers.',link:'https://www.gathre.com/collections/foam',sold:false,imgIds:[29,30],localImgs:[],mainImg:null},
-  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:'https://www.wayfair.com/kids/pdp/toy-organizer',sold:false,imgIds:[31],localImgs:[],mainImg:null},
+  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8" shade',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,sold:false,imgIds:[7],localImgs:[],mainImg:null},
+  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,sold:false,imgIds:[8],localImgs:[],mainImg:null},
+  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs.',link:'https://www.castlery.com/us/sofas/all-sofas',sold:false,imgIds:[21,22],localImgs:[],mainImg:null},
+  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,sold:false,imgIds:[23,24],localImgs:[],mainImg:null},
+  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile.',link:null,sold:false,imgIds:[25,26],localImgs:[],mainImg:null},
+  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,sold:false,imgIds:[27,28],localImgs:[],mainImg:null},
+  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf.',link:'https://www.gathre.com/collections/foam',sold:false,imgIds:[29,30],localImgs:[],mainImg:null},
+  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,sold:false,imgIds:[31],localImgs:[],mainImg:null},
   {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins.',link:'https://www.ikea.com/us/en/p/trofast-storage-combination-with-boxes-white-white-s29299189/',sold:false,imgIds:[32],localImgs:[],mainImg:null},
-  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval frame',desc:'Slim oak + rattan shoe cabinet with 2 flip-down doors and top drawer, plus matching black oval wall mirror.',link:'https://www.cb2.com/shoe-cabinet',sold:false,imgIds:[11,15],localImgs:[],mainImg:null},
-  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench. Lightweight and minimal.',link:'https://www.ikea.com/us/en/p/skogsta-bench',sold:false,imgIds:[16],localImgs:[],mainImg:null},
+  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval frame',desc:'Slim oak + rattan shoe cabinet with 2 flip-down doors, plus matching black oval wall mirror.',link:null,sold:false,imgIds:[11,15],localImgs:[],mainImg:null},
+  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench.',link:null,sold:false,imgIds:[16],localImgs:[],mainImg:null},
 ];
 
-// ── IMAGE HELPERS ─────────────────────────────────────────────
+// ── STATE ──────────────────────────────────────────────────────
+let items = JSON.parse(JSON.stringify(DEFAULT_ITEMS));
+let isAdmin = false, activeRoom = 'all';
+let viewItem = null, viewImgIdx = 0;
+let editItem = null, editIsNew = false;
+let dragSrcId = null;
+let fsImgs = [], fsIdx = 0;
+
+// ── JSONBIN ────────────────────────────────────────────────────
+async function loadItems(){
+  try {
+    const r = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      method: 'GET',
+      headers: {
+        'X-Access-Key': API_KEY,
+        'X-Bin-Meta': 'false'
+      }
+    });
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const saved = data?.items;
+    if(saved && Array.isArray(saved) && saved.length > 0){
+      items = saved.map(s => {
+        const def = DEFAULT_ITEMS.find(d => d.id === s.id) || {};
+        return Object.assign({}, def, s, {localImgs: s.localImgs || []});
+      });
+      DEFAULT_ITEMS.forEach(d => {
+        if(!items.find(i => i.id === d.id)) items.push(JSON.parse(JSON.stringify(d)));
+      });
+    }
+  } catch(e){ console.warn('Could not load from JSONBin, using defaults.', e); }
+}
+
+async function saveItems(){
+  const ind = document.getElementById('saving-ind');
+  ind.classList.add('show');
+  try {
+    const r = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Key': API_KEY,
+        'X-Bin-Versioning': 'false'
+      },
+      body: JSON.stringify({ items })
+    });
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+  } catch(e){
+    alert('⚠️ Save failed: ' + e.message);
+    console.error(e);
+  } finally {
+    setTimeout(()=>ind.classList.remove('show'), 1200);
+  }
+}
+
+// ── IMAGE HELPERS ──────────────────────────────────────────────
 function allImgs(item){
-  const local = item.localImgs||[];
-  const gd = (item.imgIds||[]).map(id=>iUrl(id)).filter(Boolean);
-  return [...local,...gd];
+  return [...(item.localImgs||[]), ...(item.imgIds||[]).map(id=>iUrl(id)).filter(Boolean)];
 }
 function coverImg(item){
   const all = allImgs(item);
   if(!all.length) return null;
-  if(item.mainImg !== null && item.mainImg !== undefined && all[item.mainImg]) return all[item.mainImg];
-  return all[0];
+  const mi = item.mainImg;
+  return (mi != null && all[mi]) ? all[mi] : all[0];
 }
 
-// ── RENDER GRID ───────────────────────────────────────────────
+// ── RENDER ─────────────────────────────────────────────────────
 function renderGrid(room){
   const grid = document.getElementById('grid');
-  const list = room==='all' ? items : items.filter(i=>i.room===room);
-  grid.innerHTML = list.map(item=>{
+  const list = room === 'all' ? items : items.filter(i=>i.room===room);
+  grid.style.display = 'grid';
+  document.getElementById('loading').style.display = 'none';
+  grid.innerHTML = list.map(item => {
     const img = coverImg(item);
-    return `<div class="card${item.sold?' sold':''}${isAdmin?' admin-mode':''}"
-      id="card-${item.id}"
-      ${isAdmin ? `draggable="true" ondragstart="dragStart(event,'${item.id}')" ondragover="dragOver(event)" ondrop="dragDrop(event,'${item.id}')" ondragleave="dragLeave(event)" ondragend="dragEnd(event)"` : `onclick="openView('${item.id}')"`}>
-      <div class="drag-handle" title="Drag to reorder">✥</div>
+    return `<div class="card${item.sold?' sold':''}${isAdmin?' admin-mode':''}" id="card-${item.id}"
+      ${isAdmin
+        ? `draggable="true" ondragstart="dragStart(event,'${item.id}')" ondragover="dragOver(event)" ondrop="dragDrop(event,'${item.id}')" ondragleave="dragLeave(event)" ondragend="dragEnd(event)"`
+        : `onclick="openView('${item.id}')"`}>
+      <div class="drag-handle">✥</div>
       <div class="thumb-wrap">
-        ${img ? `<img class="thumb" src="${img}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>No image</div>'">` : '<div class="no-img">📷 No photo yet</div>'}
-        <button class="main-pic-btn" onclick="event.stopPropagation();openMainPic('${item.id}')">⭐ Set main photo</button>
+        ${img
+          ? `<img class="thumb" src="${img}" alt="${item.name}" onerror="this.parentNode.innerHTML='<div class=no-img>No image</div>'">`
+          : '<div class="no-img">📷 No photo yet</div>'}
+        ${!isAdmin && img ? `<button class="zoom-btn" onclick="event.stopPropagation();openFSfor('${item.id}',0)">⛶ Enlarge</button>` : ''}
+        ${isAdmin ? `<button class="main-pic-btn" onclick="event.stopPropagation();openMainPic('${item.id}')">⭐ Main photo</button>` : ''}
       </div>
       <div class="cbody">
         <div class="rtag">${item.room}</div>
@@ -411,62 +433,48 @@ function renderGrid(room){
         <div class="dims">${item.dims}</div>
         <div class="cdesc">${item.desc.slice(0,90)}…</div>
       </div>
-      ${isAdmin ? `<div class="admin-toolbar show">
-        <button class="abt edit" onclick="event.stopPropagation();openEdit('${item.id}')">✏ Edit</button>
-        <button class="abt sold-tog${item.sold?' is-sold':''}" onclick="event.stopPropagation();toggleSold('${item.id}')">${item.sold?'↩ Unsold':'✓ Mark sold'}</button>
-        <button class="abt del" onclick="event.stopPropagation();delItem('${item.id}')">✕ Delete</button>
-      </div>` :
-      `<div class="cfooter"><button class="btn bp" onclick="openView('${item.id}')">View & Contact</button></div>`}
+      ${isAdmin
+        ? `<div class="admin-toolbar show">
+            <button class="abt edit" onclick="event.stopPropagation();openEdit('${item.id}')">✏ Edit</button>
+            <button class="abt sold-tog${item.sold?' is-sold':''}" onclick="event.stopPropagation();toggleSold('${item.id}')">${item.sold?'↩ Unsold':'✓ Mark sold'}</button>
+            <button class="abt del" onclick="event.stopPropagation();delItem('${item.id}')">✕ Delete</button>
+          </div>`
+        : `<div class="cfooter"><button class="btn bp" onclick="openView('${item.id}')">View & Contact</button></div>`}
     </div>`;
   }).join('');
 }
 
-// ── DRAG & DROP ───────────────────────────────────────────────
-function dragStart(e, id){
-  dragSrcId = id;
-  e.dataTransfer.effectAllowed = 'move';
-  setTimeout(()=>document.getElementById('card-'+id)?.classList.add('dragging'), 0);
-}
-function dragOver(e){
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  e.currentTarget.classList.add('drag-over');
-}
+// ── DRAG & DROP ────────────────────────────────────────────────
+function dragStart(e,id){ dragSrcId=id; e.dataTransfer.effectAllowed='move'; setTimeout(()=>document.getElementById('card-'+id)?.classList.add('dragging'),0); }
+function dragOver(e){ e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
 function dragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
 function dragEnd(e){ e.currentTarget.classList.remove('dragging','drag-over'); }
-function dragDrop(e, targetId){
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  if(dragSrcId === targetId) return;
-  const srcIdx = items.findIndex(i=>i.id===dragSrcId);
-  const tgtIdx = items.findIndex(i=>i.id===targetId);
-  if(srcIdx<0||tgtIdx<0) return;
-  const [moved] = items.splice(srcIdx,1);
-  items.splice(tgtIdx,0,moved);
-  saveItems();
-  renderGrid(activeRoom);
-  dragSrcId = null;
+function dragDrop(e,targetId){
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if(dragSrcId===targetId) return;
+  const si=items.findIndex(i=>i.id===dragSrcId), ti=items.findIndex(i=>i.id===targetId);
+  if(si<0||ti<0) return;
+  const [m]=items.splice(si,1); items.splice(ti,0,m);
+  saveItems(); renderGrid(activeRoom); dragSrcId=null;
 }
 
 // ── VIEW MODAL ─────────────────────────────────────────────────
 function openView(id){
-  viewItem = items.find(i=>i.id===id);
-  if(!viewItem) return;
+  viewItem = items.find(i=>i.id===id); if(!viewItem) return;
   viewImgIdx = viewItem.mainImg||0;
   renderViewImgs();
   document.getElementById('v-title').innerHTML = viewItem.name+(viewItem.sold?'<span class="sold-label">Sold</span>':'');
   document.getElementById('v-room').textContent = viewItem.room+(viewItem.sold?' · No longer available':'');
   document.getElementById('v-price').textContent = '$'+viewItem.price;
-  document.getElementById('v-orig').textContent = viewItem.orig ? `Retail: $${viewItem.orig} · You save $${viewItem.orig-viewItem.price}` : '';
+  document.getElementById('v-orig').textContent = viewItem.orig?`Retail: $${viewItem.orig} · Save $${viewItem.orig-viewItem.price}`:'';
   document.getElementById('v-specs').innerHTML = `
     <div class="spec"><div class="slabel">Dimensions</div><div class="sval">${viewItem.dims}</div></div>
     <div class="spec"><div class="slabel">Color</div><div class="sval">${viewItem.color}</div></div>
     <div class="spec"><div class="slabel">Price</div><div class="sval">$${viewItem.price}</div></div>
     <div class="spec"><div class="slabel">Photos</div><div class="sval">${allImgs(viewItem).length}</div></div>`;
   document.getElementById('v-desc').textContent = viewItem.desc;
-  document.getElementById('v-link').innerHTML = viewItem.link
-    ? `<a href="${viewItem.link}" target="_blank">🔗 View original product listing ↗</a>` : '';
-  document.getElementById('v-cform').style.display = viewItem.sold ? 'none' : 'block';
+  document.getElementById('v-link').innerHTML = viewItem.link ? `<a href="${viewItem.link}" target="_blank">🔗 View original listing ↗</a>` : '';
+  document.getElementById('v-cform').style.display = viewItem.sold?'none':'block';
   document.getElementById('v-msg').value = `Hi! I'm interested in the ${viewItem.name} ($${viewItem.price}). Is it still available?`;
   document.getElementById('v-ok').style.display = 'none';
   document.getElementById('v-err').style.display = 'none';
@@ -475,16 +483,35 @@ function openView(id){
 function renderViewImgs(){
   const imgs = allImgs(viewItem);
   const imgEl = document.getElementById('v-img');
-  const wrap = document.getElementById('v-img-wrap');
-  if(imgs.length){ imgEl.style.display='block'; imgEl.src=imgs[viewImgIdx]; wrap.style.minHeight=''; }
-  else { imgEl.style.display='none'; wrap.style.minHeight='0'; }
+  if(imgs.length){ imgEl.style.display='block'; imgEl.src=imgs[viewImgIdx]; }
+  else { imgEl.style.display='none'; }
   document.getElementById('v-prev').style.display = imgs.length>1?'flex':'none';
   document.getElementById('v-next').style.display = imgs.length>1?'flex':'none';
-  const dots = document.getElementById('v-dots');
-  dots.innerHTML = imgs.length>1 ? imgs.map((_,i)=>`<div class="mdot${i===viewImgIdx?' a':''}" onclick="setViewImg(${i})"></div>`).join('') : '';
+  document.getElementById('v-dots').innerHTML = imgs.length>1 ? imgs.map((_,i)=>`<div class="mdot${i===viewImgIdx?' a':''}" onclick="setViewImg(${i})"></div>`).join('') : '';
 }
 function navImg(d){ const imgs=allImgs(viewItem); viewImgIdx=(viewImgIdx+d+imgs.length)%imgs.length; setViewImg(viewImgIdx); }
-function setViewImg(i){ viewImgIdx=i; const imgs=allImgs(viewItem); document.getElementById('v-img').src=imgs[i]; document.querySelectorAll('#v-dots .mdot').forEach((d,j)=>d.classList.toggle('a',j===i)); }
+function setViewImg(i){ viewImgIdx=i; document.getElementById('v-img').src=allImgs(viewItem)[i]; document.querySelectorAll('#v-dots .mdot').forEach((d,j)=>d.classList.toggle('a',j===i)); }
+
+// ── FULLSCREEN ─────────────────────────────────────────────────
+function openFS(idx){
+  if(!viewItem) return;
+  openFSfor(viewItem.id, idx);
+}
+function openFSfor(itemId, idx){
+  const item = items.find(i=>i.id===itemId); if(!item) return;
+  fsImgs = allImgs(item); fsIdx = idx||0;
+  renderFS();
+  document.getElementById('fs-ov').classList.add('open');
+}
+function renderFS(){
+  document.getElementById('fs-img').src = fsImgs[fsIdx];
+  document.getElementById('fs-counter').textContent = fsImgs.length>1 ? `${fsIdx+1} / ${fsImgs.length}` : '';
+  document.getElementById('fs-prev').style.display = fsImgs.length>1?'flex':'none';
+  document.getElementById('fs-next').style.display = fsImgs.length>1?'flex':'none';
+  document.getElementById('fs-dots').innerHTML = fsImgs.length>1 ? fsImgs.map((_,i)=>`<div class="fs-dot${i===fsIdx?' a':''}" onclick="fsNav(${i-fsIdx});event.stopPropagation()"></div>`).join('') : '';
+}
+function fsNav(d){ fsIdx=(fsIdx+d+fsImgs.length)%fsImgs.length; renderFS(); }
+function handleFsClick(e){ if(e.target===document.getElementById('fs-ov'))closeModal('fs-ov'); }
 
 // ── SEND MESSAGE ───────────────────────────────────────────────
 async function sendMsg(){
@@ -494,17 +521,16 @@ async function sendMsg(){
   const okEl=document.getElementById('v-ok'), errEl=document.getElementById('v-err');
   if(!name||!email||!msg){alert('Please fill in all fields.');return;}
   const btn=document.querySelector('#v-cform button');
-  btn.disabled=true; btn.textContent='Sending…';
-  okEl.style.display='none'; errEl.style.display='none';
+  btn.disabled=true; btn.textContent='Sending…'; okEl.style.display='none'; errEl.style.display='none';
   try{
-    const r=await fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name,email,message:msg,item:viewItem.name,price:'$'+viewItem.price,_subject:`Moving sale inquiry: ${viewItem.name}`})});
-    if(r.ok){ okEl.style.display='block'; document.getElementById('v-name').value=''; document.getElementById('v-email').value=''; document.getElementById('v-msg').value=''; }
+    const r=await fetch(FORMSPREE,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name,email,message:msg,item:viewItem.name,price:'$'+viewItem.price,_subject:`Moving sale: ${viewItem.name}`})});
+    if(r.ok){okEl.style.display='block';document.getElementById('v-name').value='';document.getElementById('v-email').value='';document.getElementById('v-msg').value='';}
     else errEl.style.display='block';
-  } catch(e){ errEl.style.display='block'; }
+  }catch(e){errEl.style.display='block';}
   btn.disabled=false; btn.textContent='Send Message';
 }
 
-// ── ADMIN LOGIN ────────────────────────────────────────────────
+// ── ADMIN ──────────────────────────────────────────────────────
 function toggleAdminFlow(){ isAdmin ? logoutAdmin() : (document.getElementById('login-ov').classList.add('open'), setTimeout(()=>document.getElementById('pw-input').focus(),50)); }
 function doLogin(){
   if(document.getElementById('pw-input').value===ADMIN_PASSWORD){
@@ -528,11 +554,11 @@ function logoutAdmin(){
   renderGrid(activeRoom);
 }
 
-// ── ADD NEW ITEM ───────────────────────────────────────────────
+// ── ADD / EDIT ─────────────────────────────────────────────────
 function openNewItem(){
-  editItem = {id:'item_'+Date.now(),room:'Living Room',name:'',price:0,orig:null,dims:'',color:'',desc:'',link:'',sold:false,imgIds:[],localImgs:[],mainImg:null,_isNew:true};
-  items.push(editItem);
-  document.getElementById('edit-title-header').textContent = 'Add new item';
+  editIsNew=true;
+  editItem={id:'item_'+Date.now(),room:'Living Room',name:'',price:0,orig:null,dims:'',color:'',desc:'',link:'',sold:false,imgIds:[],localImgs:[],mainImg:null};
+  document.getElementById('edit-title-header').textContent='Add new item';
   document.getElementById('e-name').value='';
   document.getElementById('e-price').value='';
   document.getElementById('e-orig').value='';
@@ -544,116 +570,125 @@ function openNewItem(){
   renderEditImgs();
   document.getElementById('edit-ov').classList.add('open');
 }
-
-// ── EDIT MODAL ─────────────────────────────────────────────────
 function openEdit(id){
-  editItem = items.find(i=>i.id===id);
-  if(!editItem) return;
-  document.getElementById('edit-title-header').textContent = 'Edit: '+editItem.name;
-  document.getElementById('e-name').value = editItem.name;
-  document.getElementById('e-price').value = editItem.price;
-  document.getElementById('e-orig').value = editItem.orig||'';
-  document.getElementById('e-room').value = editItem.room;
-  document.getElementById('e-dims').value = editItem.dims;
-  document.getElementById('e-color').value = editItem.color;
-  document.getElementById('e-desc').value = editItem.desc;
-  document.getElementById('e-link').value = editItem.link||'';
+  editIsNew=false;
+  editItem=items.find(i=>i.id===id); if(!editItem) return;
+  document.getElementById('edit-title-header').textContent='Edit: '+editItem.name;
+  document.getElementById('e-name').value=editItem.name;
+  document.getElementById('e-price').value=editItem.price;
+  document.getElementById('e-orig').value=editItem.orig||'';
+  document.getElementById('e-room').value=editItem.room;
+  document.getElementById('e-dims').value=editItem.dims;
+  document.getElementById('e-color').value=editItem.color;
+  document.getElementById('e-desc').value=editItem.desc;
+  document.getElementById('e-link').value=editItem.link||'';
   renderEditImgs();
   document.getElementById('edit-ov').classList.add('open');
 }
-
 function renderEditImgs(){
-  const row = document.getElementById('e-img-row');
-  const local = (editItem.localImgs||[]).map((src,i)=>({src,type:'local',ref:i}));
-  const gd = (editItem.imgIds||[]).map(id=>({src:iUrl(id),type:'gd',ref:id}));
-  const all = [...local,...gd];
-  const mainIdx = editItem.mainImg ?? 0;
-  row.innerHTML = all.map((img,i)=>`
-    <div class="img-thumb-wrap${i===mainIdx?' is-main':''}">
-      <img class="img-thumb${i===mainIdx?' is-main':''}" src="${img.src}" title="Click to set as main photo" onclick="setEditMain(${i})" onerror="this.src=''">
-      <div class="star">★</div>
+  const all=[...(editItem.localImgs||[]).map((src,i)=>({src,type:'local',ref:i})),...(editItem.imgIds||[]).map(id=>({src:iUrl(id),type:'gd',ref:id}))];
+  const mi=editItem.mainImg??0;
+  document.getElementById('e-img-row').innerHTML=all.map((img,i)=>`
+    <div class="img-thumb-wrap">
+      <img class="img-thumb${i===mi?' is-main':''}" src="${img.src}" onclick="setEditMain(${i})" onerror="this.src=''">
+      <div class="img-star" style="${i===mi?'display:flex':''}">★</div>
       <button class="img-remove" onclick="removeEditImg('${img.type}','${img.ref}')">×</button>
     </div>`).join('');
 }
-
 function setEditMain(idx){ editItem.mainImg=idx; renderEditImgs(); }
 function removeEditImg(type,ref){
   if(type==='local') editItem.localImgs.splice(parseInt(ref),1);
-  else editItem.imgIds = editItem.imgIds.filter(id=>String(id)!==String(ref));
-  if(editItem.mainImg >= allImgs(editItem).length) editItem.mainImg=0;
+  else editItem.imgIds=editItem.imgIds.filter(id=>String(id)!==String(ref));
+  if((editItem.mainImg||0)>=allImgs(editItem).length) editItem.mainImg=0;
   renderEditImgs();
 }
 function handleImgUpload(e){
-  Array.from(e.target.files).forEach(f=>{
-    const r=new FileReader();
-    r.onload=ev=>{editItem.localImgs.push(ev.target.result); renderEditImgs();};
-    r.readAsDataURL(f);
-  });
+  Array.from(e.target.files).forEach(f=>{const r=new FileReader();r.onload=ev=>{editItem.localImgs.push(ev.target.result);renderEditImgs();};r.readAsDataURL(f);});
   e.target.value='';
 }
-function saveEdit(){
-  const name = document.getElementById('e-name').value.trim();
+async function saveEdit(){
+  const name=document.getElementById('e-name').value.trim();
   if(!name){alert('Please enter a name.');return;}
-  editItem.name = name;
-  editItem.price = parseFloat(document.getElementById('e-price').value)||0;
-  const op = document.getElementById('e-orig').value;
-  editItem.orig = op ? parseFloat(op) : null;
-  editItem.room = document.getElementById('e-room').value;
-  editItem.dims = document.getElementById('e-dims').value.trim();
-  editItem.color = document.getElementById('e-color').value.trim();
-  editItem.desc = document.getElementById('e-desc').value.trim();
-  editItem.link = document.getElementById('e-link').value.trim()||null;
-  delete editItem._isNew;
-  saveItems();
-  closeAll();
+  editItem.name=name;
+  editItem.price=parseFloat(document.getElementById('e-price').value)||0;
+  const op=document.getElementById('e-orig').value;
+  editItem.orig=op?parseFloat(op):null;
+  editItem.room=document.getElementById('e-room').value;
+  editItem.dims=document.getElementById('e-dims').value.trim();
+  editItem.color=document.getElementById('e-color').value.trim();
+  editItem.desc=document.getElementById('e-desc').value.trim();
+  editItem.link=document.getElementById('e-link').value.trim()||null;
+  if(editIsNew) items.push(editItem);
+  editIsNew=false; editItem=null;
+  closeModal('edit-ov');
   renderGrid(activeRoom);
+  await saveItems();
+}
+function cancelEdit(){
+  editIsNew=false; editItem=null;
+  closeModal('edit-ov');
 }
 
-// ── SET MAIN PIC (card button) ────────────────────────────────
+// ── MAIN PIC ───────────────────────────────────────────────────
 function openMainPic(id){
-  editItem = items.find(i=>i.id===id);
-  if(!editItem) return;
-  const row = document.getElementById('mainpic-row');
-  const all = allImgs(editItem);
-  const mainIdx = editItem.mainImg??0;
-  if(!all.length){alert('No photos for this item yet. Use Edit to add photos first.');return;}
-  row.innerHTML = all.map((src,i)=>`
+  editItem=items.find(i=>i.id===id); if(!editItem) return;
+  const all=allImgs(editItem); const mi=editItem.mainImg??0;
+  if(!all.length){alert('No photos yet. Use Edit to add photos first.');return;}
+  document.getElementById('mainpic-row').innerHTML=all.map((src,i)=>`
     <div style="position:relative;display:inline-block;cursor:pointer" onclick="setMainPicFromModal(${i})">
-      <img src="${src}" style="width:100px;height:85px;object-fit:cover;border-radius:7px;border:${i===mainIdx?'3px solid var(--admin)':'2px solid var(--border)'}">
-      ${i===mainIdx?'<div style="position:absolute;top:4px;left:4px;background:var(--admin);color:#fff;border-radius:3px;padding:1px 5px;font-size:10px">Main</div>':''}
+      <img src="${src}" style="width:100px;height:85px;object-fit:cover;border-radius:7px;border:${i===mi?'3px solid var(--admin)':'2px solid var(--border)'}">
+      ${i===mi?'<div style="position:absolute;top:4px;left:4px;background:var(--admin);color:#fff;border-radius:3px;padding:1px 5px;font-size:10px">Main</div>':''}
     </div>`).join('');
   document.getElementById('mainpic-ov').classList.add('open');
 }
-function setMainPicFromModal(idx){
+async function setMainPicFromModal(idx){
   if(!editItem) return;
-  editItem.mainImg = idx;
-  saveItems();
-  closeAll();
+  editItem.mainImg=idx;
+  closeModal('mainpic-ov');
   renderGrid(activeRoom);
+  await saveItems();
 }
 
-// ── MARK SOLD / DELETE ─────────────────────────────────────────
-function toggleSold(id){ const item=items.find(i=>i.id===id); if(item){item.sold=!item.sold; saveItems(); renderGrid(activeRoom);} }
-function delItem(id){ if(confirm('Delete this listing?')){items=items.filter(i=>i.id!==id); saveItems(); renderGrid(activeRoom);} }
+// ── SOLD / DELETE ──────────────────────────────────────────────
+async function toggleSold(id){
+  const item=items.find(i=>i.id===id); if(!item) return;
+  item.sold=!item.sold;
+  renderGrid(activeRoom);
+  await saveItems();
+}
+async function delItem(id){
+  if(!confirm('Delete this listing?')) return;
+  items=items.filter(i=>i.id!==id);
+  renderGrid(activeRoom);
+  await saveItems();
+}
 
 // ── CLOSE ──────────────────────────────────────────────────────
-function closeAll(){
-  // if new item was never saved, remove it
-  items = items.filter(i=>!i._isNew);
-  document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('open'));
-}
-document.querySelectorAll('.overlay').forEach(o=>{ o.addEventListener('click',e=>{if(e.target===o)closeAll();}); });
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{
+    if(e.target===o){
+      if(o.id==='edit-ov') cancelEdit();
+      else o.classList.remove('open');
+    }
+  });
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.overlay.open').forEach(o=>{ if(o.id==='edit-ov') cancelEdit(); else o.classList.remove('open'); });
+  if(e.key==='ArrowLeft') { if(document.getElementById('fs-ov').classList.contains('open')) fsNav(-1); else if(document.getElementById('view-ov').classList.contains('open')) navImg(-1); }
+  if(e.key==='ArrowRight') { if(document.getElementById('fs-ov').classList.contains('open')) fsNav(1); else if(document.getElementById('view-ov').classList.contains('open')) navImg(1); }
+});
 
 // ── FILTERS ────────────────────────────────────────────────────
 document.getElementById('fbar').addEventListener('click',e=>{
   if(!e.target.dataset.r) return;
   document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
   e.target.classList.add('on');
-  activeRoom = e.target.dataset.r;
+  activeRoom=e.target.dataset.r;
   renderGrid(activeRoom);
 });
 
+// ── INIT ───────────────────────────────────────────────────────
 loadItems().then(()=>renderGrid('all'));
 </script>
 </body>
