@@ -284,7 +284,7 @@ h1 em{font-style:normal;font-size:11px;color:var(--muted);display:block}
 
 <script>
 const ADMIN_PASSWORD = 'naama2025';
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzdwdzdn';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzzblgyz';
 
 let isAdmin = false;
 let activeRoom = 'all';
@@ -330,6 +330,30 @@ const imgUrls = {
 function iUrl(id){return imgUrls[id]||'';}
 
 // ── DATA ──────────────────────────────────────────────────────
+const BIN_ID = '6a0f12d26877513b27ac995d';
+const API_KEY = '$2a$10$55HOYAX9a7f4VlUZCVM3GOWR3Jy7rNca7rMlX.X3axyp8zPQNLn.i';
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+async function saveItems(){
+  try {
+    await fetch(BIN_URL, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json','X-Access-Key':API_KEY,'X-Bin-Versioning':'false'},
+      body: JSON.stringify({items})
+    });
+  } catch(e){ console.error('Save failed',e); }
+}
+
+async function loadItems(){
+  try {
+    const r = await fetch(BIN_URL+'/latest', {headers:{'X-Access-Key':API_KEY}});
+    const data = await r.json();
+    if(data.record && data.record.items && data.record.items.length){
+      items = data.record.items;
+    }
+  } catch(e){ console.error('Load failed',e); }
+}
+
 let items = [
   {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,sold:false,imgIds:[1],localImgs:[],mainImg:null},
   {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,sold:false,imgIds:[2],localImgs:[],mainImg:null},
@@ -419,6 +443,7 @@ function dragDrop(e, targetId){
   if(srcIdx<0||tgtIdx<0) return;
   const [moved] = items.splice(srcIdx,1);
   items.splice(tgtIdx,0,moved);
+  saveItems();
   renderGrid(activeRoom);
   dragSrcId = null;
 }
@@ -579,6 +604,7 @@ function saveEdit(){
   editItem.desc = document.getElementById('e-desc').value.trim();
   editItem.link = document.getElementById('e-link').value.trim()||null;
   delete editItem._isNew;
+  saveItems();
   closeAll();
   renderGrid(activeRoom);
 }
@@ -601,13 +627,14 @@ function openMainPic(id){
 function setMainPicFromModal(idx){
   if(!editItem) return;
   editItem.mainImg = idx;
+  saveItems();
   closeAll();
   renderGrid(activeRoom);
 }
 
 // ── MARK SOLD / DELETE ─────────────────────────────────────────
-function toggleSold(id){ const item=items.find(i=>i.id===id); if(item){item.sold=!item.sold; renderGrid(activeRoom);} }
-function delItem(id){ if(confirm('Delete this listing?')){items=items.filter(i=>i.id!==id); renderGrid(activeRoom);} }
+function toggleSold(id){ const item=items.find(i=>i.id===id); if(item){item.sold=!item.sold; saveItems(); renderGrid(activeRoom);} }
+function delItem(id){ if(confirm('Delete this listing?')){items=items.filter(i=>i.id!==id); saveItems(); renderGrid(activeRoom);} }
 
 // ── CLOSE ──────────────────────────────────────────────────────
 function closeAll(){
@@ -627,7 +654,7 @@ document.getElementById('fbar').addEventListener('click',e=>{
   renderGrid(activeRoom);
 });
 
-renderGrid('all');
+loadItems().then(()=>renderGrid('all'));
 </script>
 </body>
 </html>
