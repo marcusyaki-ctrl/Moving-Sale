@@ -182,6 +182,7 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
         <button class="mnav" id="v-next" onclick="navImg(1)" style="display:none">›</button>
       </div>
       <div class="mdots" id="v-dots"></div>
+      <button id="v-enlarge" onclick="openFS(viewImgIdx)" style="display:none;position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:5px;padding:5px 10px;font-size:11px;cursor:pointer;z-index:10;">⛶ Enlarge</button>
     </div>
     <div class="mbody">
       <div class="mtitle" id="v-title"></div>
@@ -490,8 +491,9 @@ function openView(id){
 function renderViewImgs(){
   const imgs = allImgs(viewItem);
   const imgEl = document.getElementById('v-img');
-  if(imgs.length){ imgEl.style.display='block'; imgEl.src=imgs[viewImgIdx]; }
-  else { imgEl.style.display='none'; }
+  const enl = document.getElementById('v-enlarge');
+  if(imgs.length){ imgEl.style.display='block'; imgEl.src=imgs[viewImgIdx]; enl.style.display='block'; }
+  else { imgEl.style.display='none'; enl.style.display='none'; }
   document.getElementById('v-prev').style.display = imgs.length>1?'flex':'none';
   document.getElementById('v-next').style.display = imgs.length>1?'flex':'none';
   document.getElementById('v-dots').innerHTML = imgs.length>1 ? imgs.map((_,i)=>`<div class="mdot${i===viewImgIdx?' a':''}" onclick="setViewImg(${i})"></div>`).join('') : '';
