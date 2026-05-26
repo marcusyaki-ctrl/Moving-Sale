@@ -172,8 +172,7 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
     <button class="abt edit" onclick="openNew()">+ Add new item</button>
     <span style="font-size:10px;color:var(--muted)">✥ Drag to reorder</span>
   </div>
-  <div id="loading" style="padding:40px;text-align:center;color:var(--muted);font-size:13px">Loading listings…</div>
-  <div class="grid" id="grid" style="display:none"></div>
+  <div class="grid" id="grid"></div>
 </div>
 
 <!-- VIEW MODAL -->
@@ -417,8 +416,6 @@ async function dbDelete(id){
 // ── RENDER ────────────────────────────────────────────────────
 function render(room){
   const grid = document.getElementById('grid');
-  document.getElementById('loading').style.display = 'none';
-  grid.style.display = 'grid';
   const list = room === 'all' ? items : items.filter(i => i.room === room);
   grid.innerHTML = list.map(item => {
     const img = coverImg(item);
@@ -725,7 +722,8 @@ document.getElementById('fbar').addEventListener('click', e=>{
 });
 
 // ── INIT ──────────────────────────────────────────────────────
-dbLoad().then(()=>render('all'));
+render('all'); // show defaults immediately
+dbLoad().then(()=>render('all')); // update silently when DB responds
 </script>
 </body>
 </html>
