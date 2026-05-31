@@ -159,6 +159,7 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
   <div class="admin-bar" id="admin-bar">
     <span>⚙ Admin</span>
     <button class="abt edit" onclick="openNew()">+ Add new item</button>
+    <button class="abt" onclick="dbTest()" style="color:#888;border-color:#ccc">🔌 Test DB</button>
     <span style="font-size:10px;color:var(--muted)">✥ Drag to reorder</span>
     <div id="admin-stats" style="margin-left:auto;display:flex;gap:12px;font-size:11px;background:#ede8ff;border-radius:6px;padding:6px 12px;align-items:center">
       <span>🏷 <strong id="stat-total">0</strong> items</span>
@@ -389,17 +390,39 @@ async function dbLoad() {
 
 async function dbSave() {
   const s = document.getElementById('saving');
+  s.textContent = '💾 Saving…';
   s.classList.add('show');
   try {
-    const rows = items.map(item => ({id: item.id, data: item, updated_at: new Date().toISOString()}));
-    const r = await fetch(SB_URL + '/rest/v1/items', {
-      method: 'POST',
-      headers: Object.assign({}, SB_HEADERS, {'Prefer': 'resolution=merge-duplicates'}),
-      body: JSON.stringify(rows)
-    });
-    if (!r.ok) { const t = await r.text(); throw new Error(t); }
-  } catch(e) { alert('Save failed: ' + e.message); }
-  finally { setTimeout(() => s.classList.remove('show'), 1200); }
+    for (const item of items) {
+      const data = Object.assign({}, item, {localImgs: []});
+      const r = await fetch(SB_URL + '/rest/v1/items', {
+        method: 'POST',
+        headers: Object.assign({}, SB_HEADERS, {'Prefer': 'resolution=merge-duplicates'}),
+        body: JSON.stringify({id: item.id, data, updated_at: new Date().toISOString()})
+      });
+      if (!r.ok) {
+        const t = await r.text();
+        let msg;
+        try { msg = JSON.parse(t).message || t; } catch { msg = t; }
+        throw new Error(`[${r.status}] ${msg}`);
+      }
+    }
+    s.textContent = '✓ Saved';
+    setTimeout(() => { s.classList.remove('show'); s.textContent = '💾 Saving…'; }, 1500);
+  } catch(e) {
+    s.classList.remove('show');
+    s.textContent = '💾 Saving…';
+    console.error('Save error:', e);
+    alert('Save failed:\n' + e.message + '\n\nCheck browser console for details.');
+  }
+}
+
+async function dbTest() {
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/items?limit=1', {headers: SB_HEADERS});
+    const t = await r.text();
+    alert('DB test [' + r.status + ']:\n' + t.slice(0, 300));
+  } catch(e) { alert('DB test error: ' + e.message); }
 }
 
 async function dbDelete(id) {
