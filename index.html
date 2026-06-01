@@ -6,11 +6,7 @@
 <title>Moving Out Sale</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#fafaf8;--card:#fff;--border:#e8e8e8;--primary:#5c7a9f;
-  --success:#6b8f5e;--text:#2d2d2d;--muted:#7a7a7a;--light:#f4f6fa;
-  --danger:#9b6b5e;--admin:#7c5cbf;
-}
+:root{--bg:#fafaf8;--card:#fff;--border:#e8e8e8;--primary:#5c7a9f;--success:#6b8f5e;--text:#2d2d2d;--muted:#7a7a7a;--light:#f4f6fa;--danger:#9b6b5e;--admin:#7c5cbf}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
 header{background:#fff;border-bottom:1px solid var(--border);padding:14px 0 8px;position:sticky;top:0;z-index:100}
 .hrow{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -26,7 +22,6 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .wrap{max-width:1100px;margin:0 auto;padding:14px 16px 40px}
 .admin-bar{display:none;background:#f3eeff;border:1px solid #d8caff;border-radius:8px;padding:10px 14px;margin-bottom:14px;align-items:center;gap:10px;flex-wrap:wrap}
 .admin-bar.show{display:flex}
-.admin-bar span{font-size:11px;color:var(--admin);font-weight:600}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:.15s;position:relative}
 .card:not(.admin-mode){cursor:pointer}
@@ -36,7 +31,7 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .card.admin-mode{border:1.5px dashed var(--admin)}
 .thumb-wrap{position:relative;background:#f5f3f0;width:100%;height:220px;overflow:hidden}
 .thumb{width:100%;height:100%;object-fit:contain;display:block;padding:6px}
-.no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;flex-direction:column;gap:6px}
+.no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px}
 .zoom-btn{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;cursor:pointer;z-index:4}
 .cbody{padding:12px 13px;flex:1;display:flex;flex-direction:column;gap:4px}
 .rtag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
@@ -54,18 +49,16 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .abt.sold-tog{color:var(--success);border-color:var(--success)}
 .abt.sold-tog.is-sold{background:#888;color:#fff;border-color:#888}
 .view-btn{width:100%;padding:7px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:var(--primary);color:#fff}
-/* overlays */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:400;overflow-y:auto}
 .ov.open{display:block}
 .mbox{background:#fff;border-radius:12px;max-width:560px;width:calc(100% - 24px);margin:16px auto;position:relative;overflow:hidden}
 .mclose{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.9);border:none;font-size:20px;cursor:pointer;color:var(--muted);z-index:10;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-/* view modal */
 .v-img-wrap{position:relative;background:#f5f3f0;min-height:60px}
 .v-img{width:100%;max-height:320px;object-fit:contain;display:block;padding:8px;cursor:zoom-in}
 .v-nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
 .vnav{background:rgba(255,255,255,.8);border:none;border-radius:50%;width:30px;height:30px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all}
-.vdots{position:absolute;bottom:7px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none}
-.vdot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.2);cursor:pointer;pointer-events:all}
+.vdots{position:absolute;bottom:7px;left:0;right:0;display:flex;justify-content:center;gap:5px}
+.vdot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.2);cursor:pointer}
 .vdot.a{background:var(--primary)}
 .v-enlarge{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;cursor:pointer;z-index:5}
 .mbody{padding:16px 18px}
@@ -87,14 +80,12 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .cform button{width:100%;padding:9px;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer}
 .ok-msg{background:#eef5e8;border:1px solid #a5c895;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--success);margin-bottom:7px;display:none}
 .err-msg{background:#fde8e8;border:1px solid #e8a5a5;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--danger);margin-bottom:7px;display:none}
-/* login */
 .login-box{background:#fff;border-radius:12px;max-width:360px;width:calc(100% - 40px);margin:80px auto;padding:28px;text-align:center}
 .login-box h2{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--admin)}
 .login-box p{font-size:12px;color:var(--muted);margin-bottom:16px}
 .login-box input{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:10px;font-family:inherit}
 .login-box button{width:100%;padding:10px;background:var(--admin);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-weight:500}
 .login-err{color:var(--danger);font-size:11px;margin-bottom:6px}
-/* edit modal */
 .edit-box .mbody{padding:14px 16px}
 .edit-box h2{font-size:14px;font-weight:500;color:var(--admin);margin-bottom:14px}
 .fg{margin-bottom:8px}
@@ -113,7 +104,6 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .pbtn{flex:1;padding:9px;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer}
 .pbtn.primary{background:var(--admin);color:#fff}
 .pbtn.secondary{background:var(--light);color:var(--text);border:1px solid var(--border)}
-/* fullscreen */
 .fs{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:999;align-items:center;justify-content:center}
 .fs.open{display:flex}
 .fs-img{max-width:95vw;max-height:90vh;object-fit:contain;border-radius:3px}
@@ -130,7 +120,6 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 </style>
 </head>
 <body>
-
 <header>
   <div class="hrow">
     <h1>Moving Out Sale</h1>
@@ -153,8 +142,9 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 
 <div class="wrap">
   <div class="admin-bar" id="admin-bar">
-    <span>⚙ Admin Mode</span>
+    <span style="font-size:11px;color:var(--admin);font-weight:600">⚙ Admin Mode</span>
     <button class="abt edit" onclick="openNew()">+ Add item</button>
+    <button class="abt" style="color:var(--danger);border-color:var(--danger)" onclick="resetToDefaults()">↺ Reset all data</button>
     <div style="margin-left:auto;display:flex;gap:12px;font-size:11px;background:#ede8ff;border-radius:6px;padding:6px 12px;align-items:center">
       <span>🏷 <strong id="stat-total">0</strong> items</span>
       <span style="color:var(--muted)">|</span>
@@ -247,15 +237,12 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
       <div class="fg">
         <label>Photos <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">(tap thumbnail to set as cover)</span></label>
         <div class="img-row" id="e-imgs"></div>
-        <label class="upload-btn">
-          📷 Add from gallery
-          <input type="file" accept="image/*" multiple style="display:none" onchange="uploadImgs(event)">
-        </label>
-        <div style="display:flex;gap:6px;margin-top:8px">
-          <input type="url" id="e-url-input" placeholder="Paste imgBB direct link (https://i.ibb.co/...)" style="flex:1;padding:7px 9px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit">
+        <div style="display:flex;gap:6px;margin-bottom:6px">
+          <input type="url" id="e-url-input" placeholder="Paste imgBB link (https://i.ibb.co/...)" style="flex:1;padding:7px 9px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit">
           <button onclick="addUrlImg()" style="padding:7px 11px;background:var(--admin);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;white-space:nowrap">+ Add</button>
         </div>
-        <div class="hint">Tap thumbnail to set cover. Paste imgBB links to add permanent photos (multiple allowed).</div>
+        <label class="upload-btn">📷 Add from gallery<input type="file" accept="image/*" multiple style="display:none" onchange="uploadImgs(event)"></label>
+        <div class="hint">Purple border = cover. imgBB links save permanently; gallery photos are preview only.</div>
       </div>
       <div class="btn-row">
         <button class="pbtn primary" onclick="saveEdit()">Save</button>
@@ -272,17 +259,16 @@ const SB_URL    = 'https://qiprybskpitvswiyqpmp.supabase.co';
 const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcHJ5YnNrcGl0dnN3aXlxcG1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNjUyMjEsImV4cCI6MjA5NDk0MTIyMX0.HVN89sZURzR-DUjfVdycUQZRCA6PUZzpynQaY7Y5GDM';
 const SB_H = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
 
-// Fresh image URLs
 const IMGS = {
-  1: 'https://i.ibb.co/1hbhxjw/20260525-234854.jpg',
-  2: 'https://i.ibb.co/FbjjXv80/20260527-135357.jpg',
-  3: 'https://i.ibb.co/pBB8mjG7/20260527-135402.jpg',
-  4: 'https://i.ibb.co/xqGd6ZHH/20260527-135422.jpg',
-  5: 'https://i.ibb.co/cSCHGk1V/20260527-135829.jpg',
-  6: 'https://i.ibb.co/xKNJL7KG/20260527-135841.jpg',
-  7: 'https://i.ibb.co/jkBSWMtk/20260527-135832.jpg',
-  8: 'https://i.ibb.co/fz0YxHHs/20260527-135856.jpg',
-  9: 'https://i.ibb.co/mVjyVBj7/20260527-135948.jpg',
+  1:'https://i.ibb.co/1hbhxjw/20260525-234854.jpg',
+  2:'https://i.ibb.co/FbjjXv80/20260527-135357.jpg',
+  3:'https://i.ibb.co/pBB8mjG7/20260527-135402.jpg',
+  4:'https://i.ibb.co/xqGd6ZHH/20260527-135422.jpg',
+  5:'https://i.ibb.co/cSCHGk1V/20260527-135829.jpg',
+  6:'https://i.ibb.co/xKNJL7KG/20260527-135841.jpg',
+  7:'https://i.ibb.co/jkBSWMtk/20260527-135832.jpg',
+  8:'https://i.ibb.co/fz0YxHHs/20260527-135856.jpg',
+  9:'https://i.ibb.co/mVjyVBj7/20260527-135948.jpg',
   10:'https://i.ibb.co/SXMdyxHm/20260527-140128.jpg',
   11:'https://i.ibb.co/B5WgDyLM/20260527-140218.jpg',
   12:'https://i.ibb.co/Myh2b9ZN/20260527-140123.jpg',
@@ -309,40 +295,44 @@ const IMGS = {
 };
 function iUrl(id){ return IMGS[id]||''; }
 
+// DEFAULTS — source of truth, always intact in code
 const DEFAULTS = [
-  {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,sold:false,imgIds:[1],photoUrls:[],mainImg:0},
-  {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,sold:false,imgIds:[2],photoUrls:[],mainImg:0},
-  {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,sold:false,imgIds:[3],photoUrls:[],mainImg:0},
-  {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably.',link:'https://www.article.com/product/9289/seno-black-oval-dining-table',sold:false,imgIds:[12,19,20],photoUrls:[],mainImg:0},
-  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',sold:false,imgIds:[13,17,18],photoUrls:[],mainImg:0},
-  {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:null,sold:false,imgIds:[5],photoUrls:[],mainImg:0},
-  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,sold:false,imgIds:[6],photoUrls:[],mainImg:0},
-  {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:null,sold:false,imgIds:[4,14],photoUrls:[],mainImg:0},
-  {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass',desc:'Sleek full-length wall mirror with slim brushed gold frame.',link:null,sold:false,imgIds:[9,10],photoUrls:[],mainImg:0},
-  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8"',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,sold:false,imgIds:[7],photoUrls:[],mainImg:0},
-  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,sold:false,imgIds:[8],photoUrls:[],mainImg:0},
-  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs.',link:null,sold:false,imgIds:[21,22],photoUrls:[],mainImg:0},
-  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,sold:false,imgIds:[23,24],photoUrls:[],mainImg:0},
-  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile.',link:null,sold:false,imgIds:[25,26],photoUrls:[],mainImg:0},
-  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,sold:false,imgIds:[27],photoUrls:[],mainImg:0},
-  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf.',link:null,sold:false,imgIds:[28,29],photoUrls:[],mainImg:0},
-  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,sold:false,imgIds:[30],photoUrls:[],mainImg:0},
-  {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins.',link:null,sold:false,imgIds:[31],photoUrls:[],mainImg:0},
-  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval',desc:'Slim oak + rattan shoe cabinet plus matching black oval wall mirror.',link:null,sold:false,imgIds:[11,15],photoUrls:[],mainImg:0},
-  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench.',link:null,sold:false,imgIds:[16],photoUrls:[],mainImg:0}
+  {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,imgIds:[1],photoUrls:[],mainImg:0},
+  {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,imgIds:[2],photoUrls:[],mainImg:0},
+  {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,imgIds:[3],photoUrls:[],mainImg:0},
+  {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably.',link:'https://www.article.com/product/9289/seno-black-oval-dining-table',imgIds:[12,19,20],photoUrls:[],mainImg:0},
+  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',imgIds:[13,17,18],photoUrls:[],mainImg:0},
+  {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:null,imgIds:[5],photoUrls:[],mainImg:0},
+  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,imgIds:[6],photoUrls:[],mainImg:0},
+  {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:null,imgIds:[4,14],photoUrls:[],mainImg:0},
+  {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass',desc:'Sleek full-length wall mirror with slim brushed gold frame.',link:null,imgIds:[9,10],photoUrls:[],mainImg:0},
+  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8"',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,imgIds:[7],photoUrls:[],mainImg:0},
+  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,imgIds:[8],photoUrls:[],mainImg:0},
+  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs.',link:null,imgIds:[21,22],photoUrls:[],mainImg:0},
+  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,imgIds:[23,24],photoUrls:[],mainImg:0},
+  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile.',link:null,imgIds:[25,26],photoUrls:[],mainImg:0},
+  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,imgIds:[27],photoUrls:[],mainImg:0},
+  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf.',link:null,imgIds:[28,29],photoUrls:[],mainImg:0},
+  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,imgIds:[30],photoUrls:[],mainImg:0},
+  {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins.',link:null,imgIds:[31],photoUrls:[],mainImg:0},
+  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval',desc:'Slim oak + rattan shoe cabinet plus matching black oval wall mirror.',link:null,imgIds:[11,15],photoUrls:[],mainImg:0},
+  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench.',link:null,imgIds:[16],photoUrls:[],mainImg:0}
 ];
 
-let items = DEFAULTS.map(d => Object.assign({}, d, {photoUrls: []}));
+let items = [];
 let isAdmin = false, activeRoom = 'all';
 let vItem = null, vIdx = 0;
 let eItem = null, eIsNew = false;
 let fsImgs = [], fsIdx = 0;
 
-// ── HELPERS ───────────────────────────────────────────────────
+function freshDefaults() {
+  return DEFAULTS.map(d => Object.assign({}, d, {sold: false, photoUrls: [], mainImg: 0, imgIds: [...d.imgIds]}));
+}
+
 function getImgs(item) {
+  const urls = (item.photoUrls||[]).filter(u => u && !u.startsWith('data:'));
   const hosted = (item.imgIds||[]).map(id => iUrl(id)).filter(Boolean);
-  const uploaded = (item.photoUrls||[]).filter(Boolean);
-  return [...uploaded, ...hosted];
+  return [...urls, ...hosted];
 }
 function coverImg(item) {
   const all = getImgs(item);
@@ -352,20 +342,40 @@ function coverImg(item) {
 // ── SUPABASE ──────────────────────────────────────────────────
 async function dbLoad() {
   try {
-    const r = await fetch(SB_URL+'/rest/v1/items?select=id,data', {headers: SB_H});
+    const r = await fetch(SB_URL+'/rest/v1/items?select=id,data&limit=200', {headers: SB_H});
     if (!r.ok) throw new Error('HTTP '+r.status);
     const rows = await r.json();
-    if (!rows||!rows.length) return;
+    if (!Array.isArray(rows) || !rows.length) {
+      items = freshDefaults();
+      return;
+    }
+    // Build map from DB
     const map = {};
-    rows.forEach(row => { map[row.id] = row.data; });
+    rows.forEach(row => { if (row && row.id && row.data) map[row.id] = row.data; });
+    // Merge: DB overrides sold/price/desc/photoUrls but imgIds fall back to DEFAULTS
     items = DEFAULTS.map(def => {
-      if (map[def.id]) return Object.assign({}, def, map[def.id], {photoUrls: map[def.id].photoUrls||[]});
-      return Object.assign({}, def, {photoUrls: []});
+      const saved = map[def.id];
+      if (!saved) return Object.assign({}, def, {sold:false, photoUrls:[], mainImg:0, imgIds:[...def.imgIds]});
+      return {
+        ...def,
+        ...saved,
+        // Always keep default imgIds if saved version has none
+        imgIds: (saved.imgIds && saved.imgIds.length) ? saved.imgIds : [...def.imgIds],
+        photoUrls: (saved.photoUrls||[]).filter(u => u && !u.startsWith('data:')),
+        mainImg: saved.mainImg||0,
+        sold: !!saved.sold
+      };
     });
+    // Add any extra items created via admin
     rows.forEach(row => {
-      if (!items.find(i => i.id === row.id)) items.push(Object.assign({photoUrls:[]}, row.data));
+      if (row && row.id && row.data && !items.find(i => i.id === row.id)) {
+        items.push(Object.assign({photoUrls:[], imgIds:[], mainImg:0, sold:false}, row.data));
+      }
     });
-  } catch(e) { console.warn('Load failed, using defaults.', e); }
+  } catch(e) {
+    console.warn('DB load failed, using defaults:', e);
+    items = freshDefaults();
+  }
 }
 
 async function dbSave() {
@@ -373,7 +383,6 @@ async function dbSave() {
   s.textContent = '💾 Saving…'; s.classList.add('show');
   try {
     for (const item of items) {
-      // Save photoUrls (imgBB links) but NOT base64 blobs
       const data = Object.assign({}, item, {
         photoUrls: (item.photoUrls||[]).filter(u => u && !u.startsWith('data:'))
       });
@@ -385,10 +394,10 @@ async function dbSave() {
       if (!r.ok) { const t = await r.text(); let m; try{m=JSON.parse(t).message||t}catch{m=t}; throw new Error(`[${r.status}] ${m}`); }
     }
     s.textContent = '✓ Saved';
-    setTimeout(() => { s.classList.remove('show'); s.textContent = '💾 Saving…'; }, 1500);
+    setTimeout(()=>{ s.classList.remove('show'); s.textContent='💾 Saving…'; }, 1500);
   } catch(e) {
     s.classList.remove('show');
-    alert('Save failed:\n'+e.message+'\n\nTip: Go to Supabase → items table → RLS → enable anon INSERT/UPDATE policy.');
+    alert('Save failed:\n'+e.message);
   }
 }
 
@@ -396,7 +405,14 @@ async function dbDelete(id) {
   try { await fetch(SB_URL+'/rest/v1/items?id=eq.'+id, {method:'DELETE', headers: SB_H}); } catch(e){}
 }
 
-// ── STATS ─────────────────────────────────────────────────────
+async function resetToDefaults() {
+  if (!confirm('This will reset ALL items to defaults and clear sold statuses. Are you sure?')) return;
+  items = freshDefaults();
+  render(activeRoom);
+  await dbSave();
+}
+
+// ── STATS & RENDER ────────────────────────────────────────────
 function updateStats() {
   const sold = items.filter(i => i.sold);
   document.getElementById('stat-total').textContent = items.length;
@@ -404,7 +420,6 @@ function updateStats() {
   document.getElementById('stat-earned').textContent = '$'+sold.reduce((s,i)=>s+i.price,0);
 }
 
-// ── RENDER ────────────────────────────────────────────────────
 function render(room) {
   activeRoom = room;
   if (isAdmin) updateStats();
@@ -436,88 +451,80 @@ function render(room) {
 
 // ── CARD ZOOM ─────────────────────────────────────────────────
 function cardZoom(id) {
-  const item = items.find(i => i.id===id); if (!item) return;
-  fsImgs = getImgs(item); fsIdx = item.mainImg||0;
+  const item = items.find(i=>i.id===id); if(!item) return;
+  fsImgs=getImgs(item); fsIdx=item.mainImg||0;
   renderFS(); document.getElementById('fs').classList.add('open');
 }
 
 // ── VIEW MODAL ────────────────────────────────────────────────
 function openView(id) {
-  vItem = items.find(i => i.id===id); if (!vItem) return;
-  vIdx = vItem.mainImg||0;
-  renderVImgs();
-  document.getElementById('v-title').innerHTML = vItem.name+(vItem.sold?'<span class="sold-label">Sold</span>':'');
-  document.getElementById('v-room').textContent = vItem.room+(vItem.sold?' · No longer available':'');
-  document.getElementById('v-price').textContent = '$'+vItem.price;
-  document.getElementById('v-orig').textContent = vItem.orig?`Retail: $${vItem.orig} · Save $${vItem.orig-vItem.price}`:'';
-  document.getElementById('v-specs').innerHTML = `
+  vItem=items.find(i=>i.id===id); if(!vItem) return;
+  vIdx=vItem.mainImg||0; renderVImgs();
+  document.getElementById('v-title').innerHTML=vItem.name+(vItem.sold?'<span class="sold-label">Sold</span>':'');
+  document.getElementById('v-room').textContent=vItem.room+(vItem.sold?' · No longer available':'');
+  document.getElementById('v-price').textContent='$'+vItem.price;
+  document.getElementById('v-orig').textContent=vItem.orig?`Retail: $${vItem.orig} · Save $${vItem.orig-vItem.price}`:'';
+  document.getElementById('v-specs').innerHTML=`
     <div class="spec"><div class="slabel">Dimensions</div><div class="sval">${vItem.dims}</div></div>
     <div class="spec"><div class="slabel">Color</div><div class="sval">${vItem.color}</div></div>
     <div class="spec"><div class="slabel">Price</div><div class="sval">$${vItem.price}</div></div>
     <div class="spec"><div class="slabel">Photos</div><div class="sval">${getImgs(vItem).length}</div></div>`;
-  document.getElementById('v-desc').textContent = vItem.desc;
-  document.getElementById('v-link').innerHTML = vItem.link?`<a href="${vItem.link}" target="_blank">🔗 View original listing ↗</a>`:'';
-  document.getElementById('v-form').style.display = vItem.sold?'none':'block';
-  document.getElementById('v-msg').value = `Hi! I'm interested in the ${vItem.name} ($${vItem.price}). Is it still available?`;
-  document.getElementById('v-ok').style.display = 'none';
-  document.getElementById('v-err').style.display = 'none';
+  document.getElementById('v-desc').textContent=vItem.desc;
+  document.getElementById('v-link').innerHTML=vItem.link?`<a href="${vItem.link}" target="_blank">🔗 View original listing ↗</a>`:'';
+  document.getElementById('v-form').style.display=vItem.sold?'none':'block';
+  document.getElementById('v-msg').value=`Hi! I'm interested in the ${vItem.name} ($${vItem.price}). Is it still available?`;
+  document.getElementById('v-ok').style.display='none';
+  document.getElementById('v-err').style.display='none';
   document.getElementById('ov-view').classList.add('open');
 }
 function renderVImgs() {
-  const imgs = getImgs(vItem);
-  const imgEl = document.getElementById('v-img');
-  const enl = document.getElementById('v-enlarge');
-  imgEl.style.display = imgs.length?'block':'none';
-  enl.style.display = imgs.length?'block':'none';
-  if (imgs.length) imgEl.src = imgs[vIdx];
-  document.getElementById('v-prev').style.display = imgs.length>1?'flex':'none';
-  document.getElementById('v-next').style.display = imgs.length>1?'flex':'none';
-  document.getElementById('v-dots').innerHTML = imgs.length>1
-    ? imgs.map((_,i)=>`<div class="vdot${i===vIdx?' a':''}" onclick="vSet(${i})"></div>`).join('') : '';
+  const imgs=getImgs(vItem);
+  const imgEl=document.getElementById('v-img');
+  const enl=document.getElementById('v-enlarge');
+  imgEl.style.display=imgs.length?'block':'none';
+  enl.style.display=imgs.length?'block':'none';
+  if(imgs.length) imgEl.src=imgs[vIdx];
+  document.getElementById('v-prev').style.display=imgs.length>1?'flex':'none';
+  document.getElementById('v-next').style.display=imgs.length>1?'flex':'none';
+  document.getElementById('v-dots').innerHTML=imgs.length>1?imgs.map((_,i)=>`<div class="vdot${i===vIdx?' a':''}" onclick="vSet(${i})"></div>`).join(''):'';
 }
-function vNav(d) { const imgs=getImgs(vItem); vIdx=(vIdx+d+imgs.length)%imgs.length; vSet(vIdx); }
-function vSet(i) { vIdx=i; document.getElementById('v-img').src=getImgs(vItem)[i]; document.querySelectorAll('.vdot').forEach((d,j)=>d.classList.toggle('a',j===i)); }
+function vNav(d){const imgs=getImgs(vItem);vIdx=(vIdx+d+imgs.length)%imgs.length;vSet(vIdx);}
+function vSet(i){vIdx=i;document.getElementById('v-img').src=getImgs(vItem)[i];document.querySelectorAll('.vdot').forEach((d,j)=>d.classList.toggle('a',j===i));}
 
 // ── FULLSCREEN ────────────────────────────────────────────────
-function fsOpen(idx) {
-  if (!vItem) return;
-  fsImgs=getImgs(vItem); fsIdx=typeof idx==='number'?idx:0;
-  renderFS(); document.getElementById('fs').classList.add('open');
+function fsOpen(idx){if(!vItem)return;fsImgs=getImgs(vItem);fsIdx=typeof idx==='number'?idx:0;renderFS();document.getElementById('fs').classList.add('open');}
+function renderFS(){
+  if(!fsImgs.length)return;
+  document.getElementById('fs-img').src=fsImgs[fsIdx];
+  document.getElementById('fs-count').textContent=fsImgs.length>1?`${fsIdx+1} / ${fsImgs.length}`:'';
+  document.getElementById('fs-prev').style.display=fsImgs.length>1?'flex':'none';
+  document.getElementById('fs-next').style.display=fsImgs.length>1?'flex':'none';
+  document.getElementById('fs-dots').innerHTML=fsImgs.length>1?fsImgs.map((_,i)=>`<div class="fs-dot${i===fsIdx?' a':''}" onclick="fsDot(${i})"></div>`).join(''):'';
 }
-function renderFS() {
-  if (!fsImgs.length) return;
-  document.getElementById('fs-img').src = fsImgs[fsIdx];
-  document.getElementById('fs-count').textContent = fsImgs.length>1?`${fsIdx+1} / ${fsImgs.length}`:'';
-  document.getElementById('fs-prev').style.display = fsImgs.length>1?'flex':'none';
-  document.getElementById('fs-next').style.display = fsImgs.length>1?'flex':'none';
-  document.getElementById('fs-dots').innerHTML = fsImgs.length>1
-    ? fsImgs.map((_,i)=>`<div class="fs-dot${i===fsIdx?' a':''}" onclick="fsDot(${i})"></div>`).join('') : '';
-}
-function fsNav(d) { fsIdx=(fsIdx+d+fsImgs.length)%fsImgs.length; renderFS(); }
-function fsDot(i) { fsIdx=i; renderFS(); }
+function fsNav(d){fsIdx=(fsIdx+d+fsImgs.length)%fsImgs.length;renderFS();}
+function fsDot(i){fsIdx=i;renderFS();}
 
 // ── SEND MSG ──────────────────────────────────────────────────
-async function sendMsg() {
+async function sendMsg(){
   const name=document.getElementById('v-name').value.trim();
   const email=document.getElementById('v-email').value.trim();
   const msg=document.getElementById('v-msg').value.trim();
-  if (!name||!email||!msg){alert('Please fill in all fields.');return;}
+  if(!name||!email||!msg){alert('Please fill in all fields.');return;}
   const btn=document.querySelector('#v-form button');
-  btn.disabled=true; btn.textContent='Sending…';
-  try {
-    const r=await fetch(FORMSPREE,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({name,email,message:msg,item:vItem.name,price:'$'+vItem.price,_subject:'Moving sale: '+vItem.name})});
+  btn.disabled=true;btn.textContent='Sending…';
+  try{
+    const r=await fetch(FORMSPREE,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name,email,message:msg,item:vItem.name,price:'$'+vItem.price,_subject:'Moving sale: '+vItem.name})});
     if(r.ok){document.getElementById('v-ok').style.display='block';document.getElementById('v-name').value='';document.getElementById('v-email').value='';document.getElementById('v-msg').value='';}
     else document.getElementById('v-err').style.display='block';
-  } catch(e){document.getElementById('v-err').style.display='block';}
-  btn.disabled=false; btn.textContent='Send Message';
+  }catch(e){document.getElementById('v-err').style.display='block';}
+  btn.disabled=false;btn.textContent='Send Message';
 }
 
 // ── ADMIN ─────────────────────────────────────────────────────
-function toggleAdmin() { isAdmin ? logout() : (document.getElementById('ov-login').classList.add('open'), setTimeout(()=>document.getElementById('pw').focus(),50)); }
-function doLogin() {
-  if (document.getElementById('pw').value===ADMIN_PW) {
-    isAdmin=true; closeOv('ov-login');
+function toggleAdmin(){isAdmin?logout():(document.getElementById('ov-login').classList.add('open'),setTimeout(()=>document.getElementById('pw').focus(),50));}
+function doLogin(){
+  if(document.getElementById('pw').value===ADMIN_PW){
+    isAdmin=true;closeOv('ov-login');
     document.getElementById('pw').value='';
     document.getElementById('login-err').textContent='';
     document.getElementById('admin-btn').textContent='Log out';
@@ -525,9 +532,9 @@ function doLogin() {
     document.getElementById('admin-badge').style.display='inline';
     document.getElementById('admin-bar').classList.add('show');
     render(activeRoom);
-  } else { document.getElementById('login-err').textContent='Wrong password.'; }
+  } else {document.getElementById('login-err').textContent='Wrong password.';}
 }
-function logout() {
+function logout(){
   isAdmin=false;
   document.getElementById('admin-btn').textContent='Admin';
   document.getElementById('admin-btn').classList.remove('admin-on');
@@ -537,25 +544,23 @@ function logout() {
 }
 
 // ── SOLD ──────────────────────────────────────────────────────
-async function toggleSold(id) {
-  const item=items.find(i=>i.id===id); if(!item) return;
+async function toggleSold(id){
+  const item=items.find(i=>i.id===id);if(!item)return;
   item.sold=!item.sold;
-  render(activeRoom);
-  await dbSave();
+  render(activeRoom);await dbSave();
 }
 
 // ── EDIT ──────────────────────────────────────────────────────
-function openNew() {
+function openNew(){
   eIsNew=true;
   eItem={id:'item_'+Date.now(),room:'Living Room',name:'',price:0,orig:null,dims:'',color:'',desc:'',link:'',sold:false,imgIds:[],photoUrls:[],mainImg:0};
   document.getElementById('edit-h').textContent='Add new item';
   ['e-name','e-price','e-orig','e-dims','e-color','e-desc','e-link'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('e-room').value='Living Room';
-  renderEImgs();
-  document.getElementById('ov-edit').classList.add('open');
+  renderEImgs();document.getElementById('ov-edit').classList.add('open');
 }
-function openEdit(id) {
-  eIsNew=false; eItem=items.find(i=>i.id===id); if(!eItem) return;
+function openEdit(id){
+  eIsNew=false;eItem=items.find(i=>i.id===id);if(!eItem)return;
   document.getElementById('edit-h').textContent='Edit: '+eItem.name;
   document.getElementById('e-name').value=eItem.name;
   document.getElementById('e-price').value=eItem.price;
@@ -565,12 +570,11 @@ function openEdit(id) {
   document.getElementById('e-color').value=eItem.color;
   document.getElementById('e-desc').value=eItem.desc;
   document.getElementById('e-link').value=eItem.link||'';
-  renderEImgs();
-  document.getElementById('ov-edit').classList.add('open');
+  renderEImgs();document.getElementById('ov-edit').classList.add('open');
 }
-function renderEImgs() {
+function renderEImgs(){
   const all=[
-    ...(eItem.photoUrls||[]).map((u,i)=>({src:u,type:'url',ref:i})),
+    ...(eItem.photoUrls||[]).filter(u=>u&&!u.startsWith('data:')).map((u,i)=>({src:u,type:'url',ref:i})),
     ...(eItem.imgIds||[]).map(id=>({src:iUrl(id),type:'id',ref:id}))
   ];
   const mi=eItem.mainImg||0;
@@ -587,28 +591,22 @@ function removeEImg(type,ref){
   if((eItem.mainImg||0)>=getImgs(eItem).length) eItem.mainImg=0;
   renderEImgs();
 }
-function addUrlImg() {
-  const input = document.getElementById('e-url-input');
-  const url = input.value.trim();
-  if (!url) return;
-  if (!url.startsWith('http')) { alert('Please paste a valid image URL starting with https://'); return; }
-  eItem.photoUrls.push(url);
-  input.value = '';
-  renderEImgs();
+function addUrlImg(){
+  const input=document.getElementById('e-url-input');
+  const url=input.value.trim();
+  if(!url)return;
+  if(!url.startsWith('http')){alert('Please paste a valid URL starting with https://');return;}
+  eItem.photoUrls.push(url);input.value='';renderEImgs();
 }
-
+function uploadImgs(e){
   Array.from(e.target.files).forEach(f=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      // Store as data URL for preview; on save, only ibb links are persisted
-      eItem.photoUrls.push(ev.target.result);
-      renderEImgs();
-    };
-    reader.readAsDataURL(f);
+    const r=new FileReader();
+    r.onload=ev=>{eItem.photoUrls.push(ev.target.result);renderEImgs();};
+    r.readAsDataURL(f);
   });
   e.target.value='';
 }
-async function saveEdit() {
+async function saveEdit(){
   const name=document.getElementById('e-name').value.trim();
   if(!name){alert('Please enter a name.');return;}
   eItem.name=name;
@@ -621,10 +619,8 @@ async function saveEdit() {
   eItem.desc=document.getElementById('e-desc').value.trim();
   eItem.link=document.getElementById('e-link').value.trim()||null;
   if(eIsNew) items.push(eItem);
-  eIsNew=false; eItem=null;
-  closeOv('ov-edit');
-  render(activeRoom);
-  await dbSave();
+  eIsNew=false;eItem=null;
+  closeOv('ov-edit');render(activeRoom);await dbSave();
 }
 function cancelEdit(){eIsNew=false;eItem=null;closeOv('ov-edit');}
 
@@ -632,8 +628,8 @@ function cancelEdit(){eIsNew=false;eItem=null;closeOv('ov-edit');}
 function closeOv(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.ov').forEach(o=>{
   o.addEventListener('click',e=>{
-    if(e.target!==o) return;
-    if(o.id==='ov-edit') cancelEdit(); else closeOv(o.id);
+    if(e.target!==o)return;
+    if(o.id==='ov-edit')cancelEdit();else closeOv(o.id);
   });
 });
 document.addEventListener('keydown',e=>{
@@ -646,13 +642,13 @@ document.addEventListener('keydown',e=>{
 
 // ── FILTERS ───────────────────────────────────────────────────
 document.getElementById('fbar').addEventListener('click',e=>{
-  if(!e.target.dataset.r) return;
+  if(!e.target.dataset.r)return;
   document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
-  e.target.classList.add('on');
-  render(e.target.dataset.r);
+  e.target.classList.add('on');render(e.target.dataset.r);
 });
 
-// ── INIT ──────────────────────────────────────────────────────
+// ── INIT — show defaults immediately, then layer in DB data ───
+items = freshDefaults();
 render('all');
 dbLoad().then(()=>render(activeRoom));
 </script>
