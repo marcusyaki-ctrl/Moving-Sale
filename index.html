@@ -259,64 +259,108 @@ const SB_URL    = 'https://qiprybskpitvswiyqpmp.supabase.co';
 const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcHJ5YnNrcGl0dnN3aXlxcG1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNjUyMjEsImV4cCI6MjA5NDk0MTIyMX0.HVN89sZURzR-DUjfVdycUQZRCA6PUZzpynQaY7Y5GDM';
 const SB_H = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
 
+// Google Drive direct image URLs — public folder, no hotlink issues
+function gdUrl(id){ return 'https://drive.google.com/uc?export=view&id='+id; }
 const IMGS = {
-  1:'https://i.ibb.co/1hbhxjw/20260525-234854.jpg',
-  2:'https://i.ibb.co/FbjjXv80/20260527-135357.jpg',
-  3:'https://i.ibb.co/pBB8mjG7/20260527-135402.jpg',
-  4:'https://i.ibb.co/xqGd6ZHH/20260527-135422.jpg',
-  5:'https://i.ibb.co/cSCHGk1V/20260527-135829.jpg',
-  6:'https://i.ibb.co/xKNJL7KG/20260527-135841.jpg',
-  7:'https://i.ibb.co/jkBSWMtk/20260527-135832.jpg',
-  8:'https://i.ibb.co/fz0YxHHs/20260527-135856.jpg',
-  9:'https://i.ibb.co/mVjyVBj7/20260527-135948.jpg',
-  10:'https://i.ibb.co/SXMdyxHm/20260527-140128.jpg',
-  11:'https://i.ibb.co/B5WgDyLM/20260527-140218.jpg',
-  12:'https://i.ibb.co/Myh2b9ZN/20260527-140123.jpg',
-  13:'https://i.ibb.co/cSJYKVwY/20260527-140040.jpg',
-  14:'https://i.ibb.co/1fLg753c/20260527-140016.jpg',
-  15:'https://i.ibb.co/FLs4Mg9z/20260527-135951.jpg',
-  16:'https://i.ibb.co/j9Xw58bH/Whats-App-Image-2026-05-18-at-15-53-36-6.jpg',
-  17:'https://i.ibb.co/tTnDBgKT/Whats-App-Image-2026-05-18-at-15-53-36-5.jpg',
-  18:'https://i.ibb.co/CKkxhLJ2/Whats-App-Image-2026-05-18-at-15-53-36-3.jpg',
-  19:'https://i.ibb.co/Rk9p2NCn/Whats-App-Image-2026-05-18-at-15-53-36-2.jpg',
-  20:'https://i.ibb.co/tpWrsh86/Whats-App-Image-2026-05-18-at-15-53-35.jpg',
-  21:'https://i.ibb.co/3YCxxnPP/Whats-App-Image-2026-05-18-at-15-53-35-9.jpg',
-  22:'https://i.ibb.co/qMsBRCRX/Whats-App-Image-2026-05-18-at-15-53-35-8.jpg',
-  23:'https://i.ibb.co/DPvcKZF8/Whats-App-Image-2026-05-18-at-15-53-35-6.jpg',
-  24:'https://i.ibb.co/qMCxqh5B/Whats-App-Image-2026-05-18-at-15-53-35-2.jpg',
-  25:'https://i.ibb.co/B2jzMGbd/Whats-App-Image-2026-05-18-at-15-53-34-9.jpg',
-  26:'https://i.ibb.co/6RS5xkS0/Whats-App-Image-2026-05-18-at-15-53-34-7.jpg',
-  27:'https://i.ibb.co/60gtgJKq/Whats-App-Image-2026-05-18-at-15-53-25.jpg',
-  28:'https://i.ibb.co/M5Nz8tSn/Whats-App-Image-2026-05-21-at-12-12-51.jpg',
-  29:'https://i.ibb.co/RkMS66Zk/Whats-App-Image-2026-05-21-at-12-12-50.jpg',
-  30:'https://i.ibb.co/J46PDLB/Whats-App-Image-2026-05-21-at-12-11-51.jpg',
-  31:'https://i.ibb.co/My1yz0gX/Whats-App-Image-2026-05-21-at-12-13-32.jpg',
-  32:'https://i.ibb.co/T5vXHkH/Whats-App-Image-2026-05-18-at-15-53-36.jpg'
+  // Plants
+  p1: gdUrl('1TSQ_XqfR_JeXiqn5s9fZv_UQSsaBxRz4'), // plant 1 (23 Jan A)
+  p2: gdUrl('1yxPhER9Og9m25Ez-rb7QBRfNmwQBP3NN'), // plant 2 (23 Jan B)
+  p3: gdUrl('1QNcdBhHKHUcCbifBmKEm9EbXuSmUQo5U'), // plant 3 (23 Jan C)
+  // Bed frame
+  b1: gdUrl('11k4AqJs_vn4nCvi1-WkpdjcDKKQ_Ps6M'), // bed (15.53.25)
+  b2: gdUrl('1T8dgiooHzQIkvtMFl8EjHdrv0SHvuM3w'), // bed 2 (15.53.34)
+  // Mirror + sconces + floor lamps (15.53.34 series)
+  m1: gdUrl('1pp8Z_b5p8-7JqxrthSPD8wkHp1Qvx5Ow'), // 34(1)
+  m2: gdUrl('1UjaDpy2S9wc9JGDs2cJZdDaMuYkTej4D'), // 34(2)
+  m3: gdUrl('12PsJNzl_VPHSL5lrcHhRmCburEBD5UtM'), // 34(3)
+  m4: gdUrl('1DWD2JSG1PivOdLpsSzRWjObl8Hzqaj6H'), // 34(4)
+  m5: gdUrl('1o7hkZ7Fx2h_0qS3HCZTqNqLOuEuKBMMe'), // 34(5)
+  m6: gdUrl('1MkKyWbCv80t8rBckqyGCiiBIZ-K_YThU'), // 34(6)
+  m7: gdUrl('1KRURNy4a2FKi3vJLYqtJnBdcD6f0Lr9v'), // 34(7)
+  m8: gdUrl('1-YH0qpfAxC13ShbJOlI3TM8BpT4Fb0BC'), // 34(8)
+  m9: gdUrl('1CdTiHSHBjldGv4FF-7mVfh9rW2LbI3_7'), // 34(9)
+  // 15.53.35 series — sofa, coffee table, rug, lamps
+  s1: gdUrl('1XWb2Ab9uwg15ZaHYaA7reWC2v4ybU2tc'), // 35(2)
+  s2: gdUrl('1tkjWypSh5rqQsGuLc44jR_zzZlt4Qxoq'), // 35(3)
+  s3: gdUrl('1f6TWcwNKPQVzSNCUSKfsWDVTA4pHbsh9'), // 35(4)
+  s4: gdUrl('13wmGaz0aATP9-6DNgepVnh-TkOQrbF0f'), // 35(5)
+  s5: gdUrl('1GvP30ZD5jLmieXBnpGdsqR3X5SFd_U4O'), // 35(6)
+  s6: gdUrl('1-yrAVNwgI5RTHpHCDl_Oq_vs4JOMTY5t'), // 35(7)
+  s7: gdUrl('1SkDSJEyQNkVsHqhl1e4IbNpt7Xnrf9sW'), // 35(8)
+  s8: gdUrl('1LWgyMRuXxAVlEK-0PyKEvjuaZ8ZufQYv'), // 35(9)
+  s9: gdUrl('1je_Jb_TAGVYpp7Rd7pHbySf764OrvYyW'), // 35
+  // 15.53.36 series — shelving, dining, entrance
+  e1: gdUrl('1ZYXCmv3VoCgWwj0WxDWzgmo-odA-WIkG'), // 36(1)
+  e2: gdUrl('1fZO5SReFmN6jwVd8v3qg59o25ViKniuc'), // 36(2)
+  e3: gdUrl('1azli8ru3g3qH-Na8V3-vQREc13Gz0msp'), // 36(3)
+  e4: gdUrl('1kHSveS_wGcfVpX0-2vMCDz7dbakDb4F4'), // 36(4)
+  e5: gdUrl('1LPOO06LCEwyB781ye2UOSsPGeDwPDALZ'), // 36(5)
+  e6: gdUrl('1QJdMSwluCARGYtvaX4bw24caqgquELra'), // 36(6)
+  e7: gdUrl('1GneGx3x8RzyHFZNMfkjQIYntvZq4BiGj'), // 36(7)
+  e8: gdUrl('1xHxtxANmLVvFm4OJWelzuqhZENtpIgkW'), // 36
+  // Kids room (May 21)
+  k1: gdUrl('167OFSlyGMl2MfCg6BSh7PoyVhoxf_dIO'), // 12.11.51 toy storage
+  k2: gdUrl('10XdKBm0IzpnPRpf-lgVRGLYb4Ibh3NLK'), // 12.12.50 gathre
+  k3: gdUrl('1JuT7mZHgUjCeJzyveedGSG8v0iu9zjg6'), // 12.12.51 gathre
+  k4: gdUrl('1KfNRChh2CYK4J_sQZUuLV6bp1fdQVbzN'), // 12.13.32 trofast
+  // May 25 series
+  n1: gdUrl('1C7VlTcCvQuXcc6dxE2_JG64rVM5j-VAM'), // 23:58:53(1)
+  n2: gdUrl('1qfo4re-WIcqVmGCoOaHuf-UV-NiwNnP5'), // 23:58:53(2)
+  n3: gdUrl('1jxMnCbtzlVLyYFKKk7fRLIzxqEuzfrzJ'), // 23:58:53(3)
+  n4: gdUrl('1_vy3-vRbvJhCois1fXGtocutZh55BmzT'), // 23:58:53(4)
+  n5: gdUrl('1msbiu7e0KV2rFGK-7l2G3V8YdoZ5zWd1'), // 23:58:53(5)
+  n6: gdUrl('1SQjVEeBTvAxcNlm-FztqzjABSINRGIs6'), // 23:58:53
+  // May 27 series
+  d1: gdUrl('1yvQvtJbJ0bBQftFCID1Nyl99CZ5rErZ4'), // 14.14.04
+  d2: gdUrl('1oXYktqQ-V8u5RLx2OIXc_2tQXBp1jlqk'), // 14.14.04(1)
+  d3: gdUrl('1AD3gQui3L7N801D8jPF_eFWQMhKPPKGA'), // 14.14.04(2)
+  d4: gdUrl('1iHWVH0kpVaYRhiHB9k3h4WxIju4lc_pk'), // 14.14.04(3)
+  d5: gdUrl('1OD88t6tR0Ix26ksKq_nrkj1ZBo77j_fA'), // 14.14.05
+  d6: gdUrl('1X-jtXii3Fa_0LRZVboDoL2XU8abozZrz'), // 14.14.05(2)
+  d7: gdUrl('1_ni11Tg6375DtYKj3jCTYQ3u2R-0lTyG'), // 14.14.05(1)
+  d8: gdUrl('1hIc4EqFU_8aUzknv19Z3K0Kjjt5PL38y'), // 14.14.08(1)
+  d9: gdUrl('1Zc5dRTwGsqBG-ZxbFF9u7Y9ktln5N-P8'), // 14.14.08(2)
+  d10:gdUrl('1XoAWLqNaucNu7WPBPe0JIBImkhzTUpx9'), // 14.14.08(3)
+  d11:gdUrl('1PimaY456s3N2kAI2Eb9Rb4dElDwDZtuL'), // 14.14.08(4)
+  d12:gdUrl('13rlTcUx5lwSO-PWekcHBS6jTk4z9S3BP'), // 14.14.08
+  d13:gdUrl('1H7dtx9syFu6G2Q-D40z7iTS-QeGFmM8y'), // 14.14.08(5)
+  // Jun 1 series
+  j1: gdUrl('1--C2sw2Lm8cp2OrCl6czICpfjf4XSXyv'), // 00.02.49
+  j2: gdUrl('1EK2dDqJ3BZeLg7hwUA8IY3ct6bi732o3'), // 00.02.49(1)
+  j3: gdUrl('1ZhKBa6IPoTDhQSLRtTiNqQK-tgsFTQUd'), // 00.02.49(2)
+  j4: gdUrl('13mLYsVrYiEs_Pww3I7kj7jnnuwn9zR99'), // 00.09.11
+  j5: gdUrl('1t3TbyJ_509ajlEpw9lUm28pUXGXHi_FL'), // 00.09.11(1)
+  j6: gdUrl('1-bbf7rAk4N7SoLsp3MyaPWlavvarkDCS'), // 00.09.11(2)
+  j7: gdUrl('1W2MlZHhNRj7zluDAxJ1OAFOJSAj4yeg5'), // 00.09.12
+  j8: gdUrl('1qqWKjgcyFBiD9Ui5qUBB0dxR_qAXcypL'), // 09.27.20(1)
+  j9: gdUrl('12DmQ_k3JSz5-eE-Jba7IvpHgfYhtGWAq'), // 09.27.20
+  j10:gdUrl('11zXTH5wdi4Xm5xXlgI6olZI0_ZIk8m5F'), // 09.27.20(3)
+  j11:gdUrl('1cjxcFC6ZlsU5V2zcnV6s6WLkKmsRMfOU'), // 09.27.20(2)
 };
 function iUrl(id){ return IMGS[id]||''; }
 
 // DEFAULTS — source of truth, always intact in code
 const DEFAULTS = [
-  {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,imgIds:[1],photoUrls:[],mainImg:0},
-  {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,imgIds:[2],photoUrls:[],mainImg:0},
-  {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,imgIds:[3],photoUrls:[],mainImg:0},
-  {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably.',link:'https://www.article.com/product/9289/seno-black-oval-dining-table',imgIds:[12,19,20],photoUrls:[],mainImg:0},
-  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',imgIds:[13,17,18],photoUrls:[],mainImg:0},
-  {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:null,imgIds:[5],photoUrls:[],mainImg:0},
-  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,imgIds:[6],photoUrls:[],mainImg:0},
-  {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:null,imgIds:[4,14],photoUrls:[],mainImg:0},
-  {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass',desc:'Sleek full-length wall mirror with slim brushed gold frame.',link:null,imgIds:[9,10],photoUrls:[],mainImg:0},
-  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8"',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,imgIds:[7],photoUrls:[],mainImg:0},
-  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,imgIds:[8],photoUrls:[],mainImg:0},
-  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs.',link:null,imgIds:[21,22],photoUrls:[],mainImg:0},
-  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,imgIds:[23,24],photoUrls:[],mainImg:0},
-  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile.',link:null,imgIds:[25,26],photoUrls:[],mainImg:0},
-  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,imgIds:[27],photoUrls:[],mainImg:0},
-  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf.',link:null,imgIds:[28,29],photoUrls:[],mainImg:0},
-  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,imgIds:[30],photoUrls:[],mainImg:0},
-  {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins.',link:null,imgIds:[31],photoUrls:[],mainImg:0},
-  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval',desc:'Slim oak + rattan shoe cabinet plus matching black oval wall mirror.',link:null,imgIds:[11,15],photoUrls:[],mainImg:0},
-  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench.',link:null,imgIds:[16],photoUrls:[],mainImg:0}
+  {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,imgIds:['p1'],photoUrls:[],mainImg:0},
+  {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,imgIds:['p2'],photoUrls:[],mainImg:0},
+  {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,imgIds:['p3'],photoUrls:[],mainImg:0},
+  {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably.',link:'https://www.article.com/product/9289/seno-black-oval-dining-table',imgIds:['d5','d6','d7','d8','d12'],photoUrls:[],mainImg:0},
+  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',imgIds:['e1','e2','e3'],photoUrls:[],mainImg:0},
+  {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:null,imgIds:['n1','n2'],photoUrls:[],mainImg:0},
+  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,imgIds:['m3','m4'],photoUrls:[],mainImg:0},
+  {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:null,imgIds:['b1','b2','j1','j2','j3'],photoUrls:[],mainImg:0},
+  {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass',desc:'Sleek full-length wall mirror with slim brushed gold frame.',link:null,imgIds:['m7','m8'],photoUrls:[],mainImg:0},
+  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8"',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,imgIds:['m5','m6'],photoUrls:[],mainImg:0},
+  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,imgIds:['m1','m2'],photoUrls:[],mainImg:0},
+  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs.',link:null,imgIds:['d1','d2','d3','d4'],photoUrls:[],mainImg:0},
+  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,imgIds:['s4','s5'],photoUrls:[],mainImg:0},
+  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile.',link:null,imgIds:['s6','s7','s8'],photoUrls:[],mainImg:0},
+  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,imgIds:['s1','s2','s3'],photoUrls:[],mainImg:0},
+  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf.',link:null,imgIds:['k2','k3'],photoUrls:[],mainImg:0},
+  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,imgIds:['k1'],photoUrls:[],mainImg:0},
+  {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins.',link:null,imgIds:['k4'],photoUrls:[],mainImg:0},
+  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval',desc:'Slim oak + rattan shoe cabinet plus matching black oval wall mirror.',link:null,imgIds:['e6','e7','e8','j8','j9','j10','j11'],photoUrls:[],mainImg:0},
+  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench.',link:null,imgIds:['e4','e5','j4','j5','j6','j7'],photoUrls:[],mainImg:0}
 ];
 
 let items = [];
