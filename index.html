@@ -260,7 +260,7 @@ const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 const SB_H = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
 
 // Google Drive direct image URLs — public folder, no hotlink issues
-function gdUrl(id){ return 'https://drive.google.com/uc?export=view&id='+id; }
+function gdUrl(id){ return 'https://drive.google.com/uc?id='+id+'&export=download'; }
 const IMGS = {
   // Plants
   p1: gdUrl('1TSQ_XqfR_JeXiqn5s9fZv_UQSsaBxRz4'), // plant 1 (23 Jan A)
