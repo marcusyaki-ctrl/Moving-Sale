@@ -34,16 +34,10 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .card.sold{opacity:.4}
 .card.sold:not(.admin-mode){pointer-events:none}
 .card.admin-mode{border:1.5px dashed var(--admin)}
-.card.drag-over{border:2px solid var(--admin);background:#f8f5ff}
-.drag-handle{position:absolute;top:8px;left:8px;background:rgba(124,92,191,.85);color:#fff;border-radius:5px;padding:3px 7px;font-size:12px;cursor:grab;z-index:5;display:none;user-select:none}
-.card.admin-mode .drag-handle{display:block}
 .thumb-wrap{position:relative;background:#f5f3f0;width:100%;height:220px;overflow:hidden}
 .thumb{width:100%;height:100%;object-fit:contain;display:block;padding:6px}
 .no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;flex-direction:column;gap:6px}
 .zoom-btn{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:11px;cursor:pointer;z-index:4}
-.main-btn{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:5px;padding:4px 9px;font-size:10px;cursor:pointer;z-index:4;display:none}
-.card.admin-mode .main-btn{display:block}
-.card.admin-mode .zoom-btn{display:none}
 .cbody{padding:12px 13px;flex:1;display:flex;flex-direction:column;gap:4px}
 .rtag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
 .cname{font-size:13px;font-weight:500;line-height:1.3}
@@ -59,12 +53,13 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .abt.edit{color:var(--admin);border-color:var(--admin)}
 .abt.sold-tog{color:var(--success);border-color:var(--success)}
 .abt.sold-tog.is-sold{background:#888;color:#fff;border-color:#888}
-.abt.del{color:var(--danger);border-color:var(--danger)}
 .view-btn{width:100%;padding:7px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:var(--primary);color:#fff}
+/* overlays */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:400;overflow-y:auto}
 .ov.open{display:block}
 .mbox{background:#fff;border-radius:12px;max-width:560px;width:calc(100% - 24px);margin:16px auto;position:relative;overflow:hidden}
 .mclose{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.9);border:none;font-size:20px;cursor:pointer;color:var(--muted);z-index:10;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* view modal */
 .v-img-wrap{position:relative;background:#f5f3f0;min-height:60px}
 .v-img{width:100%;max-height:320px;object-fit:contain;display:block;padding:8px;cursor:zoom-in}
 .v-nav{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
@@ -92,12 +87,14 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .cform button{width:100%;padding:9px;background:var(--primary);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer}
 .ok-msg{background:#eef5e8;border:1px solid #a5c895;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--success);margin-bottom:7px;display:none}
 .err-msg{background:#fde8e8;border:1px solid #e8a5a5;border-radius:6px;padding:8px 11px;font-size:12px;color:var(--danger);margin-bottom:7px;display:none}
+/* login */
 .login-box{background:#fff;border-radius:12px;max-width:360px;width:calc(100% - 40px);margin:80px auto;padding:28px;text-align:center}
 .login-box h2{font-size:16px;font-weight:500;margin-bottom:6px;color:var(--admin)}
 .login-box p{font-size:12px;color:var(--muted);margin-bottom:16px}
 .login-box input{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:10px;font-family:inherit}
 .login-box button{width:100%;padding:10px;background:var(--admin);color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer;font-weight:500}
 .login-err{color:var(--danger);font-size:11px;margin-bottom:6px}
+/* edit modal */
 .edit-box .mbody{padding:14px 16px}
 .edit-box h2{font-size:14px;font-weight:500;color:var(--admin);margin-bottom:14px}
 .fg{margin-bottom:8px}
@@ -109,24 +106,23 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 .ithumb-wrap{position:relative;display:inline-block}
 .ithumb{width:70px;height:60px;object-fit:cover;border-radius:5px;border:2px solid var(--border);cursor:pointer}
 .ithumb.main{border-color:var(--admin);box-shadow:0 0 0 2px var(--admin)}
-.istar{position:absolute;top:-5px;left:-5px;background:var(--admin);color:#fff;border-radius:50%;width:16px;height:16px;font-size:9px;display:none;align-items:center;justify-content:center}
 .iremove{position:absolute;top:-5px;right:-5px;background:var(--danger);color:#fff;border:none;border-radius:50%;width:17px;height:17px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.upload-btn{padding:7px 13px;font-size:11px;border:1.5px dashed var(--admin);background:#faf8ff;color:var(--admin);border-radius:6px;cursor:pointer;font-weight:500;display:inline-block}
+.upload-btn{padding:7px 13px;font-size:12px;border:1.5px dashed var(--admin);background:#faf8ff;color:var(--admin);border-radius:6px;cursor:pointer;font-weight:500;display:inline-block}
 .hint{font-size:10px;color:var(--muted);margin-top:5px}
 .btn-row{display:flex;gap:8px;margin-top:12px}
 .pbtn{flex:1;padding:9px;border:none;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer}
 .pbtn.primary{background:var(--admin);color:#fff}
 .pbtn.secondary{background:var(--light);color:var(--text);border:1px solid var(--border)}
+/* fullscreen */
 .fs{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:999;align-items:center;justify-content:center}
 .fs.open{display:flex}
 .fs-img{max-width:95vw;max-height:90vh;object-fit:contain;border-radius:3px}
 .fs-close{position:absolute;top:14px;right:18px;color:#fff;font-size:30px;cursor:pointer;background:none;border:none;line-height:1}
 .fs-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;cursor:pointer;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.fs-nav:hover{background:rgba(255,255,255,.3)}
 #fs-prev{left:12px}#fs-next{right:12px}
 .fs-count{position:absolute;top:16px;left:18px;color:rgba(255,255,255,.6);font-size:12px}
 .fs-dots{position:absolute;bottom:16px;display:flex;gap:6px}
-.fs-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;border:1px solid rgba(255,255,255,.2)}
+.fs-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer}
 .fs-dot.a{background:#fff}
 @media(max-width:580px){.specs,.two-col{grid-template-columns:1fr}}
 @media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
@@ -157,18 +153,14 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 
 <div class="wrap">
   <div class="admin-bar" id="admin-bar">
-    <span>⚙ Admin</span>
-    <button class="abt edit" onclick="openNew()">+ Add new item</button>
-    <button class="abt" onclick="dbTest()" style="color:#888;border-color:#ccc">🔌 Test DB</button>
-    <span style="font-size:10px;color:var(--muted)">✥ Drag to reorder</span>
-    <div id="admin-stats" style="margin-left:auto;display:flex;gap:12px;font-size:11px;background:#ede8ff;border-radius:6px;padding:6px 12px;align-items:center">
+    <span>⚙ Admin Mode</span>
+    <button class="abt edit" onclick="openNew()">+ Add item</button>
+    <div style="margin-left:auto;display:flex;gap:12px;font-size:11px;background:#ede8ff;border-radius:6px;padding:6px 12px;align-items:center">
       <span>🏷 <strong id="stat-total">0</strong> items</span>
       <span style="color:var(--muted)">|</span>
       <span>✅ <strong id="stat-sold">0</strong> sold</span>
       <span style="color:var(--muted)">|</span>
       <span>💰 <strong id="stat-earned">$0</strong> earned</span>
-      <span style="color:var(--muted)">|</span>
-      <span>📦 <strong id="stat-avail">0</strong> available</span>
     </div>
   </div>
   <div class="grid" id="grid"></div>
@@ -178,7 +170,7 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
 <div class="ov" id="ov-view">
   <div class="mbox">
     <button class="mclose" onclick="closeOv('ov-view')">×</button>
-    <div class="v-img-wrap" id="v-wrap">
+    <div class="v-img-wrap">
       <img id="v-img" class="v-img" src="" style="display:none" onclick="fsOpen(vIdx)">
       <div class="v-nav">
         <button class="vnav" id="v-prev" onclick="vNav(-1)" style="display:none">‹</button>
@@ -198,7 +190,7 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
       <div class="cform" id="v-form">
         <h3>Interested? Send a message</h3>
         <div class="ok-msg" id="v-ok">✓ Sent! We'll be in touch soon.</div>
-        <div class="err-msg" id="v-err">Something went wrong. Please try again later.</div>
+        <div class="err-msg" id="v-err">Something went wrong. Please try again.</div>
         <input type="text" id="v-name" placeholder="Your name">
         <input type="email" id="v-email" placeholder="Your email">
         <textarea id="v-msg" placeholder="Questions or offer?"></textarea>
@@ -253,10 +245,17 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
       <div class="fg"><label>Description</label><textarea id="e-desc"></textarea></div>
       <div class="fg"><label>Link</label><input type="url" id="e-link" placeholder="https://..."></div>
       <div class="fg">
-        <label>Photos <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">(click to set as main cover)</span></label>
+        <label>Photos <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">(tap thumbnail to set as cover)</span></label>
         <div class="img-row" id="e-imgs"></div>
-        <label class="upload-btn">+ Add photos<input type="file" accept="image/*" multiple style="display:none" onchange="uploadImgs(event)"></label>
-        <div class="hint">Purple border = cover photo shown on card.</div>
+        <label class="upload-btn">
+          📷 Add from gallery
+          <input type="file" accept="image/*" multiple style="display:none" onchange="uploadImgs(event)">
+        </label>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <input type="url" id="e-url-input" placeholder="Paste imgBB direct link (https://i.ibb.co/...)" style="flex:1;padding:7px 9px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit">
+          <button onclick="addUrlImg()" style="padding:7px 11px;background:var(--admin);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;white-space:nowrap">+ Add</button>
+        </div>
+        <div class="hint">Tap thumbnail to set cover. Paste imgBB links to add permanent photos (multiple allowed).</div>
       </div>
       <div class="btn-row">
         <button class="pbtn primary" onclick="saveEdit()">Save</button>
@@ -266,210 +265,169 @@ h1{font-size:18px;font-weight:500;color:var(--primary)}
   </div>
 </div>
 
-<!-- MAIN PIC MODAL -->
-<div class="ov" id="ov-mainpic">
-  <div class="mbox">
-    <button class="mclose" onclick="closeOv('ov-mainpic')">×</button>
-    <div class="mbody">
-      <h2 style="font-size:14px;font-weight:500;color:var(--admin);margin-bottom:10px">Set cover photo</h2>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Click a photo to set it as the card cover.</p>
-      <div class="img-row" id="mainpic-row" style="gap:10px"></div>
-    </div>
-  </div>
-</div>
-
 <script>
-// ── CONFIG ────────────────────────────────────────────────────
 const ADMIN_PW  = 'naama2025';
 const FORMSPREE = 'https://formspree.io/f/mzdwdzdn';
 const SB_URL    = 'https://qiprybskpitvswiyqpmp.supabase.co';
 const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcHJ5YnNrcGl0dnN3aXlxcG1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNjUyMjEsImV4cCI6MjA5NDk0MTIyMX0.HVN89sZURzR-DUjfVdycUQZRCA6PUZzpynQaY7Y5GDM';
-const SB_HEADERS = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
+const SB_H = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
 
-// ── IMAGE MAP ─────────────────────────────────────────────────
+// Fresh image URLs
 const IMGS = {
-  1:'https://i.ibb.co/mCL0j04x/Whats-App-Image-2026-05-18-at-15-53-23-1.jpg',
-  2:'https://i.ibb.co/HDh8JNvC/Whats-App-Image-2026-05-18-at-15-53-23-2.jpg',
-  3:'https://i.ibb.co/JFqt1Jxt/Whats-App-Image-2026-05-18-at-15-53-23.jpg',
-  4:'https://i.ibb.co/KcyZsTx7/Whats-App-Image-2026-05-18-at-15-53-25.jpg',
-  5:'https://i.ibb.co/LXyGq2jL/Whats-App-Image-2026-05-18-at-15-53-34-1.jpg',
-  6:'https://i.ibb.co/RkvM0SGf/Whats-App-Image-2026-05-18-at-15-53-34-2.jpg',
-  7:'https://i.ibb.co/GQ9W1fHw/Whats-App-Image-2026-05-18-at-15-53-34-3.jpg',
-  8:'https://i.ibb.co/BHmxZDMr/Whats-App-Image-2026-05-18-at-15-53-34-4.jpg',
-  9:'https://i.ibb.co/mrkpMXBb/Whats-App-Image-2026-05-18-at-15-53-34-5.jpg',
-  10:'https://i.ibb.co/PzxvGk6d/Whats-App-Image-2026-05-18-at-15-53-34-6.jpg',
-  11:'https://i.ibb.co/7t6fFFPV/Whats-App-Image-2026-05-18-at-15-53-34-7.jpg',
-  12:'https://i.ibb.co/jP4Wcf9g/Whats-App-Image-2026-05-18-at-15-53-34-8.jpg',
-  13:'https://i.ibb.co/3yhk58Dv/Whats-App-Image-2026-05-18-at-15-53-34-9.jpg',
-  14:'https://i.ibb.co/zHh9KH4Q/Whats-App-Image-2026-05-18-at-15-53-34.jpg',
-  15:'https://i.ibb.co/4Bq6Y0Q/Whats-App-Image-2026-05-18-at-15-53-35-1.jpg',
-  16:'https://i.ibb.co/ZR83fCsW/Whats-App-Image-2026-05-18-at-15-53-35-2.jpg',
-  17:'https://i.ibb.co/ksVmRfzY/Whats-App-Image-2026-05-18-at-15-53-35-3.jpg',
-  18:'https://i.ibb.co/xSF6W03S/Whats-App-Image-2026-05-18-at-15-53-35-4.jpg',
-  19:'https://i.ibb.co/WWgb8gyx/Whats-App-Image-2026-05-18-at-15-53-35-5.jpg',
-  20:'https://i.ibb.co/7tWXT5BQ/Whats-App-Image-2026-05-18-at-15-53-35-6.jpg',
-  21:'https://i.ibb.co/Qv0ZnQmW/Whats-App-Image-2026-05-18-at-15-53-35-7.jpg',
-  22:'https://i.ibb.co/G4vQQT6q/Whats-App-Image-2026-05-18-at-15-53-35-8.jpg',
-  23:'https://i.ibb.co/tTvZztxk/Whats-App-Image-2026-05-18-at-15-53-35-9.jpg',
-  24:'https://i.ibb.co/Q3QsX4mQ/Whats-App-Image-2026-05-18-at-15-53-35.jpg',
-  25:'https://i.ibb.co/Gf3TMGzZ/Whats-App-Image-2026-05-18-at-15-53-36-1.jpg',
-  26:'https://i.ibb.co/3bQrhmy/Whats-App-Image-2026-05-18-at-15-53-36-2.jpg',
-  27:'https://i.ibb.co/dwknb7Ny/Whats-App-Image-2026-05-18-at-15-53-36-3.jpg',
-  28:'https://i.ibb.co/5gHTHrcm/Whats-App-Image-2026-05-18-at-15-53-36-4.jpg',
-  29:'https://i.ibb.co/WWx8cpSM/Whats-App-Image-2026-05-18-at-15-53-36-5.jpg',
-  30:'https://i.ibb.co/KzLqZ11C/Whats-App-Image-2026-05-18-at-15-53-36-6.jpg',
-  31:'https://i.ibb.co/931QN0yS/Whats-App-Image-2026-05-18-at-15-53-36-7.jpg',
-  32:'https://i.ibb.co/C3Gg2jpQ/Whats-App-Image-2026-05-18-at-15-53-36.jpg'
+  1: 'https://i.ibb.co/1hbhxjw/20260525-234854.jpg',
+  2: 'https://i.ibb.co/FbjjXv80/20260527-135357.jpg',
+  3: 'https://i.ibb.co/pBB8mjG7/20260527-135402.jpg',
+  4: 'https://i.ibb.co/xqGd6ZHH/20260527-135422.jpg',
+  5: 'https://i.ibb.co/cSCHGk1V/20260527-135829.jpg',
+  6: 'https://i.ibb.co/xKNJL7KG/20260527-135841.jpg',
+  7: 'https://i.ibb.co/jkBSWMtk/20260527-135832.jpg',
+  8: 'https://i.ibb.co/fz0YxHHs/20260527-135856.jpg',
+  9: 'https://i.ibb.co/mVjyVBj7/20260527-135948.jpg',
+  10:'https://i.ibb.co/SXMdyxHm/20260527-140128.jpg',
+  11:'https://i.ibb.co/B5WgDyLM/20260527-140218.jpg',
+  12:'https://i.ibb.co/Myh2b9ZN/20260527-140123.jpg',
+  13:'https://i.ibb.co/cSJYKVwY/20260527-140040.jpg',
+  14:'https://i.ibb.co/1fLg753c/20260527-140016.jpg',
+  15:'https://i.ibb.co/FLs4Mg9z/20260527-135951.jpg',
+  16:'https://i.ibb.co/j9Xw58bH/Whats-App-Image-2026-05-18-at-15-53-36-6.jpg',
+  17:'https://i.ibb.co/tTnDBgKT/Whats-App-Image-2026-05-18-at-15-53-36-5.jpg',
+  18:'https://i.ibb.co/CKkxhLJ2/Whats-App-Image-2026-05-18-at-15-53-36-3.jpg',
+  19:'https://i.ibb.co/Rk9p2NCn/Whats-App-Image-2026-05-18-at-15-53-36-2.jpg',
+  20:'https://i.ibb.co/tpWrsh86/Whats-App-Image-2026-05-18-at-15-53-35.jpg',
+  21:'https://i.ibb.co/3YCxxnPP/Whats-App-Image-2026-05-18-at-15-53-35-9.jpg',
+  22:'https://i.ibb.co/qMsBRCRX/Whats-App-Image-2026-05-18-at-15-53-35-8.jpg',
+  23:'https://i.ibb.co/DPvcKZF8/Whats-App-Image-2026-05-18-at-15-53-35-6.jpg',
+  24:'https://i.ibb.co/qMCxqh5B/Whats-App-Image-2026-05-18-at-15-53-35-2.jpg',
+  25:'https://i.ibb.co/B2jzMGbd/Whats-App-Image-2026-05-18-at-15-53-34-9.jpg',
+  26:'https://i.ibb.co/6RS5xkS0/Whats-App-Image-2026-05-18-at-15-53-34-7.jpg',
+  27:'https://i.ibb.co/60gtgJKq/Whats-App-Image-2026-05-18-at-15-53-25.jpg',
+  28:'https://i.ibb.co/M5Nz8tSn/Whats-App-Image-2026-05-21-at-12-12-51.jpg',
+  29:'https://i.ibb.co/RkMS66Zk/Whats-App-Image-2026-05-21-at-12-12-50.jpg',
+  30:'https://i.ibb.co/J46PDLB/Whats-App-Image-2026-05-21-at-12-11-51.jpg',
+  31:'https://i.ibb.co/My1yz0gX/Whats-App-Image-2026-05-21-at-12-13-32.jpg',
+  32:'https://i.ibb.co/T5vXHkH/Whats-App-Image-2026-05-18-at-15-53-36.jpg'
 };
-function iUrl(id){ return IMGS[id] || ''; }
+function iUrl(id){ return IMGS[id]||''; }
 
-// ── DEFAULT ITEMS ─────────────────────────────────────────────
 const DEFAULTS = [
-  {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,sold:false,imgIds:[1],localImgs:[],mainImg:0},
-  {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,sold:false,imgIds:[2],localImgs:[],mainImg:0},
-  {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,sold:false,imgIds:[3],localImgs:[],mainImg:0},
-  {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably.',link:'https://www.article.com/product/9289/seno-black-oval-dining-table',sold:false,imgIds:[12,19,20],localImgs:[],mainImg:0},
-  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',sold:false,imgIds:[13,17,18],localImgs:[],mainImg:0},
-  {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:'https://society6.com',sold:false,imgIds:[5],localImgs:[],mainImg:0},
-  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,sold:false,imgIds:[6],localImgs:[],mainImg:0},
-  {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:'https://www.article.com/product/16708/lenia-white-oak-queen-bed',sold:false,imgIds:[4,14],localImgs:[],mainImg:0},
-  {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass',desc:'Sleek full-length wall mirror with slim brushed gold frame.',link:null,sold:false,imgIds:[9,10],localImgs:[],mainImg:0},
-  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8"',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,sold:false,imgIds:[7],localImgs:[],mainImg:0},
-  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,sold:false,imgIds:[8],localImgs:[],mainImg:0},
-  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs.',link:'https://www.castlery.com/us/sofas/all-sofas',sold:false,imgIds:[21,22],localImgs:[],mainImg:0},
-  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,sold:false,imgIds:[23,24],localImgs:[],mainImg:0},
-  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile.',link:null,sold:false,imgIds:[25,26],localImgs:[],mainImg:0},
-  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,sold:false,imgIds:[27,28],localImgs:[],mainImg:0},
-  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf.',link:'https://www.gathre.com/collections/foam',sold:false,imgIds:[29,30],localImgs:[],mainImg:0},
-  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,sold:false,imgIds:[31],localImgs:[],mainImg:0},
-  {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins.',link:'https://www.ikea.com/us/en/p/trofast-storage-combination-with-boxes-white-white-s29299189/',sold:false,imgIds:[32],localImgs:[],mainImg:0},
-  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval',desc:'Slim oak + rattan shoe cabinet plus matching black oval wall mirror.',link:null,sold:false,imgIds:[11,15],localImgs:[],mainImg:0},
-  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench.',link:null,sold:false,imgIds:[16],localImgs:[],mainImg:0}
+  {id:'plant_terrazzo',room:'Plants',name:'Palm Plant – Terrazzo Pot',price:35,orig:null,dims:'Pot ~6"×7" · Plant ~24"H',color:'Pink terrazzo ceramic',desc:'Healthy Parlor Palm in a pink terrazzo-speckled ceramic pot.',link:null,sold:false,imgIds:[1],photoUrls:[],mainImg:0},
+  {id:'plant_snake',room:'Plants',name:'Snake Plant + White Planter & Stand',price:65,orig:null,dims:'Planter ~10"×9" · Total ~36"H',color:'White ceramic + black stand',desc:'Large healthy Sansevieria in a white cylindrical pot on a black metal stand.',link:null,sold:false,imgIds:[2],photoUrls:[],mainImg:0},
+  {id:'plant_zz',room:'Plants',name:'ZZ Plant – White Ceramic Pot',price:40,orig:null,dims:'Pot ~5"×6" · Plant ~20"H',color:'Matte white ceramic',desc:'Healthy ZZ plant in a simple matte white ceramic pot.',link:null,sold:false,imgIds:[3],photoUrls:[],mainImg:0},
+  {id:'dining_set',room:'Dining Room',name:'Article Oval Dining Table + 4 Rattan Chairs',price:600,orig:1037,dims:'Table W71"×D35"×H29"',color:'Matte black / natural rattan',desc:'Article Seno oval dining table + 4 Safavieh Benicio rattan-back chairs. Seats 6 comfortably.',link:'https://www.article.com/product/9289/seno-black-oval-dining-table',sold:false,imgIds:[12,19,20],photoUrls:[],mainImg:0},
+  {id:'shelving',room:'Dining Room',name:'Article Oak Ladder Shelving Unit',price:380,orig:749,dims:'W48"×D14"×H84"',color:'Natural white oak',desc:'Article Oscuro solid oak ladder shelving. 5 shelves + bottom drawer.',link:'https://www.article.com/product/4513/oscuro-white-oak-ladder-shelf',sold:false,imgIds:[13,17,18],photoUrls:[],mainImg:0},
+  {id:'art_palm',room:'Dining Room',name:'Framed Palm Leaf Art Print',price:55,orig:153,dims:'~W24"×H32"',color:'Natural wood frame, B&W print',desc:'Society6 black-and-white palm leaf art print in a natural wood frame with white mat.',link:null,sold:false,imgIds:[5],photoUrls:[],mainImg:0},
+  {id:'sconce_globe',room:'Dining Room',name:'Wall Sconce – Black Rod + Globe',price:40,orig:89,dims:'H ~36" · Globe ~5" dia',color:'Matte black + white globe',desc:'Minimalist wall sconce with long black rod and frosted white globe. Plug-in.',link:null,sold:false,imgIds:[6],photoUrls:[],mainImg:0},
+  {id:'bed_room',room:'Master Bedroom',name:'Article Lenia Queen Bed Frame',price:480,orig:999,dims:'W64"×L83"×H48" headboard',color:'White oak',desc:'Article Lenia white oak queen bed frame with clean Scandinavian spindle headboard.',link:null,sold:false,imgIds:[4,14],photoUrls:[],mainImg:0},
+  {id:'mirror_gold',room:'Master Bedroom',name:'Full-Length Mirror – Gold Frame',price:90,orig:199,dims:'W12"×H55"',color:'Brushed gold/brass',desc:'Sleek full-length wall mirror with slim brushed gold frame.',link:null,sold:false,imgIds:[9,10],photoUrls:[],mainImg:0},
+  {id:'sconce_brass',room:'Master Bedroom',name:'Brass Adjustable Wall Sconce',price:45,orig:89,dims:'~W5"×H8"',color:'Brushed brass',desc:'Mid-century brass cylindrical wall sconce with rotatable shade. Plug-in.',link:null,sold:false,imgIds:[7],photoUrls:[],mainImg:0},
+  {id:'lamp_floor',room:'Master Bedroom',name:'Tall Floor Lamp – Brass Uplight',price:50,orig:99,dims:'H ~68"',color:'Brushed brass',desc:'Slim brass torchiere floor lamp with wide disc shade. Dimmer on pole.',link:null,sold:false,imgIds:[8],photoUrls:[],mainImg:0},
+  {id:'sofa',room:'Living Room',name:'Castlery 3-Seater Sofa',price:650,orig:1399,dims:'W84"×D38"×H32"',color:'Taupe chenille, brass legs',desc:'Castlery 3-seater sofa in warm taupe chenille with slim brass legs.',link:null,sold:false,imgIds:[21,22],photoUrls:[],mainImg:0},
+  {id:'coffee_table',room:'Living Room',name:'Round Wood Coffee Table',price:140,orig:229,dims:'Dia 40"×H17"',color:'Natural oak',desc:'Round coffee table in warm natural oak with X-cross stretcher legs.',link:null,sold:false,imgIds:[23,24],photoUrls:[],mainImg:0},
+  {id:'living_rug',room:'Living Room',name:'Living Room Area Rug 6×9',price:120,orig:349,dims:"~6'×9'",color:'Ivory/blue distressed',desc:'Large distressed-pattern area rug in ivory and slate blue. Low pile.',link:null,sold:false,imgIds:[25,26],photoUrls:[],mainImg:0},
+  {id:'lamp_white',room:'Living Room',name:'Slim Floor Lamp – White Torchiere',price:35,orig:69,dims:'H ~68"',color:'White/chrome',desc:'Slim white torchiere floor lamp. Touch dimmer on pole.',link:null,sold:false,imgIds:[27],photoUrls:[],mainImg:0},
+  {id:'gathre_set',room:'Kids Room',name:'Foam Climb & Play Set (4 pcs)',price:200,orig:359,dims:'Ramp 36"L · Cube 18"W',color:'Sage/slate/cream/caramel',desc:'Complete soft foam play set: slide ramp, 2-step climber, tunnel cube, cylinder pouf.',link:null,sold:false,imgIds:[28,29],photoUrls:[],mainImg:0},
+  {id:'toy_storage',room:'Kids Room',name:'House-Shaped Toy Storage Unit',price:140,orig:246,dims:'W60"×D15"×H48"',color:'Natural pine / white bins',desc:'Large kids storage unit with house-shaped bookshelf and 9 white pull-out bins.',link:null,sold:false,imgIds:[30],photoUrls:[],mainImg:0},
+  {id:'ikea_trofast',room:'Kids Room',name:'IKEA Trofast Storage + 6 Bins',price:55,orig:120,dims:'W41"×D17"×H22"',color:'Natural pine / white bins',desc:'IKEA Trofast low storage bench with 6 white plastic bins.',link:null,sold:false,imgIds:[31],photoUrls:[],mainImg:0},
+  {id:'shoe_cab',room:'Entrance',name:'Rattan Shoe Cabinet + Oval Mirror',price:175,orig:350,dims:'Cabinet W24"×D10"×H48"',color:'Oak + rattan / black oval',desc:'Slim oak + rattan shoe cabinet plus matching black oval wall mirror.',link:null,sold:false,imgIds:[11,15],photoUrls:[],mainImg:0},
+  {id:'bench',room:'Entrance',name:'Wooden Entryway Bench',price:30,orig:120,dims:'W43"×D11"×H18"',color:'Natural light wood',desc:'Simple, solid bamboo/wood entryway bench.',link:null,sold:false,imgIds:[16],photoUrls:[],mainImg:0}
 ];
 
-// ── STATE ─────────────────────────────────────────────────────
-let items = DEFAULTS.map(d => Object.assign({}, d, {localImgs: []}));
+let items = DEFAULTS.map(d => Object.assign({}, d, {photoUrls: []}));
 let isAdmin = false, activeRoom = 'all';
 let vItem = null, vIdx = 0;
 let eItem = null, eIsNew = false;
-let dragSrc = null;
 let fsImgs = [], fsIdx = 0;
 
 // ── HELPERS ───────────────────────────────────────────────────
 function getImgs(item) {
-  const local = item.localImgs || [];
-  const remote = (item.imgIds || []).map(id => iUrl(id)).filter(Boolean);
-  return [...local, ...remote];
+  const hosted = (item.imgIds||[]).map(id => iUrl(id)).filter(Boolean);
+  const uploaded = (item.photoUrls||[]).filter(Boolean);
+  return [...uploaded, ...hosted];
 }
 function coverImg(item) {
   const all = getImgs(item);
-  if (!all.length) return null;
-  return all[item.mainImg || 0] || all[0];
+  return all.length ? (all[item.mainImg||0] || all[0]) : null;
 }
 
 // ── SUPABASE ──────────────────────────────────────────────────
 async function dbLoad() {
   try {
-    const r = await fetch(SB_URL + '/rest/v1/items?select=id,data', {headers: SB_HEADERS});
-    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const r = await fetch(SB_URL+'/rest/v1/items?select=id,data', {headers: SB_H});
+    if (!r.ok) throw new Error('HTTP '+r.status);
     const rows = await r.json();
-    if (!rows || !rows.length) return;
+    if (!rows||!rows.length) return;
     const map = {};
     rows.forEach(row => { map[row.id] = row.data; });
     items = DEFAULTS.map(def => {
-      if (map[def.id]) return Object.assign({}, def, map[def.id], {localImgs: map[def.id].localImgs || []});
-      return Object.assign({}, def, {localImgs: []});
+      if (map[def.id]) return Object.assign({}, def, map[def.id], {photoUrls: map[def.id].photoUrls||[]});
+      return Object.assign({}, def, {photoUrls: []});
     });
     rows.forEach(row => {
-      if (!items.find(i => i.id === row.id)) {
-        items.push(Object.assign({localImgs: []}, row.data));
-      }
+      if (!items.find(i => i.id === row.id)) items.push(Object.assign({photoUrls:[]}, row.data));
     });
-  } catch(e) { console.warn('DB load failed, using defaults.', e); }
+  } catch(e) { console.warn('Load failed, using defaults.', e); }
 }
 
 async function dbSave() {
   const s = document.getElementById('saving');
-  s.textContent = '💾 Saving…';
-  s.classList.add('show');
+  s.textContent = '💾 Saving…'; s.classList.add('show');
   try {
     for (const item of items) {
-      const data = Object.assign({}, item, {localImgs: []});
-      const r = await fetch(SB_URL + '/rest/v1/items', {
+      // Save photoUrls (imgBB links) but NOT base64 blobs
+      const data = Object.assign({}, item, {
+        photoUrls: (item.photoUrls||[]).filter(u => u && !u.startsWith('data:'))
+      });
+      const r = await fetch(SB_URL+'/rest/v1/items', {
         method: 'POST',
-        headers: Object.assign({}, SB_HEADERS, {'Prefer': 'resolution=merge-duplicates'}),
+        headers: Object.assign({}, SB_H, {'Prefer':'resolution=merge-duplicates'}),
         body: JSON.stringify({id: item.id, data, updated_at: new Date().toISOString()})
       });
-      if (!r.ok) {
-        const t = await r.text();
-        let msg;
-        try { msg = JSON.parse(t).message || t; } catch { msg = t; }
-        throw new Error(`[${r.status}] ${msg}`);
-      }
+      if (!r.ok) { const t = await r.text(); let m; try{m=JSON.parse(t).message||t}catch{m=t}; throw new Error(`[${r.status}] ${m}`); }
     }
     s.textContent = '✓ Saved';
     setTimeout(() => { s.classList.remove('show'); s.textContent = '💾 Saving…'; }, 1500);
   } catch(e) {
     s.classList.remove('show');
-    s.textContent = '💾 Saving…';
-    console.error('Save error:', e);
-    alert('Save failed:\n' + e.message + '\n\nCheck browser console for details.');
+    alert('Save failed:\n'+e.message+'\n\nTip: Go to Supabase → items table → RLS → enable anon INSERT/UPDATE policy.');
   }
 }
 
-async function dbTest() {
-  try {
-    const r = await fetch(SB_URL + '/rest/v1/items?limit=1', {headers: SB_HEADERS});
-    const t = await r.text();
-    alert('DB test [' + r.status + ']:\n' + t.slice(0, 300));
-  } catch(e) { alert('DB test error: ' + e.message); }
-}
-
 async function dbDelete(id) {
-  try {
-    await fetch(SB_URL + '/rest/v1/items?id=eq.' + id, {method: 'DELETE', headers: SB_HEADERS});
-  } catch(e) { console.error('Delete failed', e); }
+  try { await fetch(SB_URL+'/rest/v1/items?id=eq.'+id, {method:'DELETE', headers: SB_H}); } catch(e){}
 }
 
 // ── STATS ─────────────────────────────────────────────────────
 function updateStats() {
   const sold = items.filter(i => i.sold);
-  const earned = sold.reduce((sum, i) => sum + i.price, 0);
   document.getElementById('stat-total').textContent = items.length;
   document.getElementById('stat-sold').textContent = sold.length;
-  document.getElementById('stat-earned').textContent = '$' + earned;
-  document.getElementById('stat-avail').textContent = items.length - sold.length;
+  document.getElementById('stat-earned').textContent = '$'+sold.reduce((s,i)=>s+i.price,0);
 }
 
 // ── RENDER ────────────────────────────────────────────────────
 function render(room) {
   activeRoom = room;
   if (isAdmin) updateStats();
-  const list = room === 'all' ? items : items.filter(i => i.room === room);
+  const list = room==='all' ? items : items.filter(i => i.room===room);
   document.getElementById('grid').innerHTML = list.map(item => {
     const img = coverImg(item);
-    return `<div class="card${item.sold ? ' sold' : ''}${isAdmin ? ' admin-mode' : ''}" id="card-${item.id}"
-      ${isAdmin
-        ? `draggable="true" ondragstart="dragStart(event,'${item.id}')" ondragover="dragOver(event)" ondrop="dragDrop(event,'${item.id}')" ondragleave="dragLeave(event)" ondragend="dragEnd(event)"`
-        : `onclick="openView('${item.id}')"`}>
-      <div class="drag-handle">✥</div>
+    return `<div class="card${item.sold?' sold':''}${isAdmin?' admin-mode':''}" id="card-${item.id}"
+      ${isAdmin ? '' : `onclick="openView('${item.id}')"`}>
       <div class="thumb-wrap">
-        ${img ? `<img class="thumb" src="${img}" alt="">` : `<div class="no-img">📷 No photo yet</div>`}
-        ${!isAdmin && img ? `<button class="zoom-btn" onclick="event.stopPropagation();cardZoom('${item.id}')">⛶ Enlarge</button>` : ''}
-        ${isAdmin ? `<button class="main-btn" onclick="event.stopPropagation();openMainPic('${item.id}')">⭐ Cover</button>` : ''}
+        ${img ? `<img class="thumb" src="${img}" alt="" onerror="this.style.display='none'">` : `<div class="no-img">📷 No photo</div>`}
+        ${!isAdmin && img ? `<button class="zoom-btn" onclick="event.stopPropagation();cardZoom('${item.id}')">⛶</button>` : ''}
       </div>
       <div class="cbody">
         <div class="rtag">${item.room}</div>
-        <div class="cname">${item.name}${item.sold ? '<span class="sold-label">Sold</span>' : ''}</div>
-        <div class="cprice">$${item.price}${item.orig ? `<span class="orig">$${item.orig}</span>` : ''}</div>
+        <div class="cname">${item.name}${item.sold?'<span class="sold-label">Sold</span>':''}</div>
+        <div class="cprice">$${item.price}${item.orig?`<span class="orig">$${item.orig}</span>`:''}</div>
         <div class="dims">${item.dims}</div>
-        <div class="cdesc">${(item.desc || '').slice(0, 90)}…</div>
+        <div class="cdesc">${(item.desc||'').slice(0,90)}…</div>
       </div>
       ${isAdmin
         ? `<div class="admin-tools show">
-             <button class="abt edit" onclick="event.stopPropagation();openEdit('${item.id}')">✏ Edit</button>
-             <button class="abt sold-tog${item.sold ? ' is-sold' : ''}" onclick="event.stopPropagation();toggleSold('${item.id}')">${item.sold ? '↩ Unsold' : '✓ Mark sold'}</button>
-             <button class="abt del" onclick="event.stopPropagation();delItem('${item.id}')">✕ Delete</button>
+             <button class="abt edit" onclick="openEdit('${item.id}')">✏ Edit</button>
+             <button class="abt sold-tog${item.sold?' is-sold':''}" onclick="toggleSold('${item.id}')">${item.sold?'↩ Unsold':'✓ Sold'}</button>
            </div>`
         : `<div class="cfooter"><button class="view-btn" onclick="event.stopPropagation();openView('${item.id}')">View &amp; Contact</button></div>`}
     </div>`;
@@ -478,283 +436,225 @@ function render(room) {
 
 // ── CARD ZOOM ─────────────────────────────────────────────────
 function cardZoom(id) {
-  const item = items.find(i => i.id === id);
-  if (!item) return;
-  fsImgs = getImgs(item);
-  fsIdx = item.mainImg || 0;
-  renderFS();
-  document.getElementById('fs').classList.add('open');
-}
-
-// ── DRAG & DROP ───────────────────────────────────────────────
-function dragStart(e, id) { dragSrc = id; e.dataTransfer.effectAllowed = 'move'; }
-function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
-function dragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
-function dragEnd(e) { e.currentTarget.classList.remove('drag-over'); }
-function dragDrop(e, tId) {
-  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
-  if (dragSrc === tId) return;
-  const si = items.findIndex(i => i.id === dragSrc);
-  const ti = items.findIndex(i => i.id === tId);
-  if (si < 0 || ti < 0) return;
-  const [m] = items.splice(si, 1); items.splice(ti, 0, m);
-  render(activeRoom); dbSave(); dragSrc = null;
+  const item = items.find(i => i.id===id); if (!item) return;
+  fsImgs = getImgs(item); fsIdx = item.mainImg||0;
+  renderFS(); document.getElementById('fs').classList.add('open');
 }
 
 // ── VIEW MODAL ────────────────────────────────────────────────
 function openView(id) {
-  vItem = items.find(i => i.id === id);
-  if (!vItem) return;
-  vIdx = vItem.mainImg || 0;
+  vItem = items.find(i => i.id===id); if (!vItem) return;
+  vIdx = vItem.mainImg||0;
   renderVImgs();
-  document.getElementById('v-title').innerHTML = vItem.name + (vItem.sold ? '<span class="sold-label">Sold</span>' : '');
-  document.getElementById('v-room').textContent = vItem.room + (vItem.sold ? ' · No longer available' : '');
-  document.getElementById('v-price').textContent = '$' + vItem.price;
-  document.getElementById('v-orig').textContent = vItem.orig ? `Retail: $${vItem.orig} · Save $${vItem.orig - vItem.price}` : '';
+  document.getElementById('v-title').innerHTML = vItem.name+(vItem.sold?'<span class="sold-label">Sold</span>':'');
+  document.getElementById('v-room').textContent = vItem.room+(vItem.sold?' · No longer available':'');
+  document.getElementById('v-price').textContent = '$'+vItem.price;
+  document.getElementById('v-orig').textContent = vItem.orig?`Retail: $${vItem.orig} · Save $${vItem.orig-vItem.price}`:'';
   document.getElementById('v-specs').innerHTML = `
     <div class="spec"><div class="slabel">Dimensions</div><div class="sval">${vItem.dims}</div></div>
     <div class="spec"><div class="slabel">Color</div><div class="sval">${vItem.color}</div></div>
     <div class="spec"><div class="slabel">Price</div><div class="sval">$${vItem.price}</div></div>
     <div class="spec"><div class="slabel">Photos</div><div class="sval">${getImgs(vItem).length}</div></div>`;
   document.getElementById('v-desc').textContent = vItem.desc;
-  document.getElementById('v-link').innerHTML = vItem.link ? `<a href="${vItem.link}" target="_blank">🔗 View original listing ↗</a>` : '';
-  document.getElementById('v-form').style.display = vItem.sold ? 'none' : 'block';
+  document.getElementById('v-link').innerHTML = vItem.link?`<a href="${vItem.link}" target="_blank">🔗 View original listing ↗</a>`:'';
+  document.getElementById('v-form').style.display = vItem.sold?'none':'block';
   document.getElementById('v-msg').value = `Hi! I'm interested in the ${vItem.name} ($${vItem.price}). Is it still available?`;
   document.getElementById('v-ok').style.display = 'none';
   document.getElementById('v-err').style.display = 'none';
   document.getElementById('ov-view').classList.add('open');
 }
-
 function renderVImgs() {
   const imgs = getImgs(vItem);
   const imgEl = document.getElementById('v-img');
   const enl = document.getElementById('v-enlarge');
-  imgEl.style.display = imgs.length ? 'block' : 'none';
-  enl.style.display = imgs.length ? 'block' : 'none';
+  imgEl.style.display = imgs.length?'block':'none';
+  enl.style.display = imgs.length?'block':'none';
   if (imgs.length) imgEl.src = imgs[vIdx];
-  document.getElementById('v-prev').style.display = imgs.length > 1 ? 'flex' : 'none';
-  document.getElementById('v-next').style.display = imgs.length > 1 ? 'flex' : 'none';
-  document.getElementById('v-dots').innerHTML = imgs.length > 1
-    ? imgs.map((_, i) => `<div class="vdot${i === vIdx ? ' a' : ''}" onclick="vSet(${i})"></div>`).join('')
-    : '';
+  document.getElementById('v-prev').style.display = imgs.length>1?'flex':'none';
+  document.getElementById('v-next').style.display = imgs.length>1?'flex':'none';
+  document.getElementById('v-dots').innerHTML = imgs.length>1
+    ? imgs.map((_,i)=>`<div class="vdot${i===vIdx?' a':''}" onclick="vSet(${i})"></div>`).join('') : '';
 }
-function vNav(d) { const imgs = getImgs(vItem); vIdx = (vIdx + d + imgs.length) % imgs.length; vSet(vIdx); }
-function vSet(i) {
-  vIdx = i;
-  document.getElementById('v-img').src = getImgs(vItem)[i];
-  document.querySelectorAll('.vdot').forEach((d, j) => d.classList.toggle('a', j === i));
-}
+function vNav(d) { const imgs=getImgs(vItem); vIdx=(vIdx+d+imgs.length)%imgs.length; vSet(vIdx); }
+function vSet(i) { vIdx=i; document.getElementById('v-img').src=getImgs(vItem)[i]; document.querySelectorAll('.vdot').forEach((d,j)=>d.classList.toggle('a',j===i)); }
 
 // ── FULLSCREEN ────────────────────────────────────────────────
 function fsOpen(idx) {
   if (!vItem) return;
-  fsImgs = getImgs(vItem);
-  fsIdx = typeof idx === 'number' ? idx : 0;
-  renderFS();
-  document.getElementById('fs').classList.add('open');
+  fsImgs=getImgs(vItem); fsIdx=typeof idx==='number'?idx:0;
+  renderFS(); document.getElementById('fs').classList.add('open');
 }
 function renderFS() {
   if (!fsImgs.length) return;
   document.getElementById('fs-img').src = fsImgs[fsIdx];
-  document.getElementById('fs-count').textContent = fsImgs.length > 1 ? `${fsIdx + 1} / ${fsImgs.length}` : '';
-  document.getElementById('fs-prev').style.display = fsImgs.length > 1 ? 'flex' : 'none';
-  document.getElementById('fs-next').style.display = fsImgs.length > 1 ? 'flex' : 'none';
-  document.getElementById('fs-dots').innerHTML = fsImgs.length > 1
-    ? fsImgs.map((_, i) => `<div class="fs-dot${i === fsIdx ? ' a' : ''}" onclick="fsDot(${i})"></div>`).join('')
-    : '';
+  document.getElementById('fs-count').textContent = fsImgs.length>1?`${fsIdx+1} / ${fsImgs.length}`:'';
+  document.getElementById('fs-prev').style.display = fsImgs.length>1?'flex':'none';
+  document.getElementById('fs-next').style.display = fsImgs.length>1?'flex':'none';
+  document.getElementById('fs-dots').innerHTML = fsImgs.length>1
+    ? fsImgs.map((_,i)=>`<div class="fs-dot${i===fsIdx?' a':''}" onclick="fsDot(${i})"></div>`).join('') : '';
 }
-function fsNav(d) { fsIdx = (fsIdx + d + fsImgs.length) % fsImgs.length; renderFS(); }
-function fsDot(i) { fsIdx = i; renderFS(); }
+function fsNav(d) { fsIdx=(fsIdx+d+fsImgs.length)%fsImgs.length; renderFS(); }
+function fsDot(i) { fsIdx=i; renderFS(); }
 
 // ── SEND MSG ──────────────────────────────────────────────────
 async function sendMsg() {
-  const name = document.getElementById('v-name').value.trim();
-  const email = document.getElementById('v-email').value.trim();
-  const msg = document.getElementById('v-msg').value.trim();
-  if (!name || !email || !msg) { alert('Please fill in all fields.'); return; }
-  const btn = document.querySelector('#v-form button');
-  btn.disabled = true; btn.textContent = 'Sending…';
-  document.getElementById('v-ok').style.display = 'none';
-  document.getElementById('v-err').style.display = 'none';
+  const name=document.getElementById('v-name').value.trim();
+  const email=document.getElementById('v-email').value.trim();
+  const msg=document.getElementById('v-msg').value.trim();
+  if (!name||!email||!msg){alert('Please fill in all fields.');return;}
+  const btn=document.querySelector('#v-form button');
+  btn.disabled=true; btn.textContent='Sending…';
   try {
-    const r = await fetch(FORMSPREE, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-      body: JSON.stringify({name, email, message: msg, item: vItem.name, price: '$' + vItem.price, _subject: 'Moving sale: ' + vItem.name})
-    });
-    if (r.ok) {
-      document.getElementById('v-ok').style.display = 'block';
-      document.getElementById('v-name').value = '';
-      document.getElementById('v-email').value = '';
-      document.getElementById('v-msg').value = '';
-    } else { document.getElementById('v-err').style.display = 'block'; }
-  } catch(e) { document.getElementById('v-err').style.display = 'block'; }
-  btn.disabled = false; btn.textContent = 'Send Message';
+    const r=await fetch(FORMSPREE,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,message:msg,item:vItem.name,price:'$'+vItem.price,_subject:'Moving sale: '+vItem.name})});
+    if(r.ok){document.getElementById('v-ok').style.display='block';document.getElementById('v-name').value='';document.getElementById('v-email').value='';document.getElementById('v-msg').value='';}
+    else document.getElementById('v-err').style.display='block';
+  } catch(e){document.getElementById('v-err').style.display='block';}
+  btn.disabled=false; btn.textContent='Send Message';
 }
 
-// ── ADMIN AUTH ────────────────────────────────────────────────
-function toggleAdmin() {
-  isAdmin ? logout() : (document.getElementById('ov-login').classList.add('open'), setTimeout(() => document.getElementById('pw').focus(), 50));
-}
+// ── ADMIN ─────────────────────────────────────────────────────
+function toggleAdmin() { isAdmin ? logout() : (document.getElementById('ov-login').classList.add('open'), setTimeout(()=>document.getElementById('pw').focus(),50)); }
 function doLogin() {
-  if (document.getElementById('pw').value === ADMIN_PW) {
-    isAdmin = true;
-    closeOv('ov-login');
-    document.getElementById('pw').value = '';
-    document.getElementById('login-err').textContent = '';
-    document.getElementById('admin-btn').textContent = 'Log out';
+  if (document.getElementById('pw').value===ADMIN_PW) {
+    isAdmin=true; closeOv('ov-login');
+    document.getElementById('pw').value='';
+    document.getElementById('login-err').textContent='';
+    document.getElementById('admin-btn').textContent='Log out';
     document.getElementById('admin-btn').classList.add('admin-on');
-    document.getElementById('admin-badge').style.display = 'inline';
+    document.getElementById('admin-badge').style.display='inline';
     document.getElementById('admin-bar').classList.add('show');
     render(activeRoom);
-  } else { document.getElementById('login-err').textContent = 'Wrong password.'; }
+  } else { document.getElementById('login-err').textContent='Wrong password.'; }
 }
 function logout() {
-  isAdmin = false;
-  document.getElementById('admin-btn').textContent = 'Admin';
+  isAdmin=false;
+  document.getElementById('admin-btn').textContent='Admin';
   document.getElementById('admin-btn').classList.remove('admin-on');
-  document.getElementById('admin-badge').style.display = 'none';
+  document.getElementById('admin-badge').style.display='none';
   document.getElementById('admin-bar').classList.remove('show');
   render(activeRoom);
 }
 
-// ── EDIT MODAL ────────────────────────────────────────────────
+// ── SOLD ──────────────────────────────────────────────────────
+async function toggleSold(id) {
+  const item=items.find(i=>i.id===id); if(!item) return;
+  item.sold=!item.sold;
+  render(activeRoom);
+  await dbSave();
+}
+
+// ── EDIT ──────────────────────────────────────────────────────
 function openNew() {
-  eIsNew = true;
-  eItem = {id: 'item_' + Date.now(), room: 'Living Room', name: '', price: 0, orig: null, dims: '', color: '', desc: '', link: '', sold: false, imgIds: [], localImgs: [], mainImg: 0};
-  document.getElementById('edit-h').textContent = 'Add new item';
-  ['e-name','e-price','e-orig','e-dims','e-color','e-desc','e-link'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('e-room').value = 'Living Room';
+  eIsNew=true;
+  eItem={id:'item_'+Date.now(),room:'Living Room',name:'',price:0,orig:null,dims:'',color:'',desc:'',link:'',sold:false,imgIds:[],photoUrls:[],mainImg:0};
+  document.getElementById('edit-h').textContent='Add new item';
+  ['e-name','e-price','e-orig','e-dims','e-color','e-desc','e-link'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('e-room').value='Living Room';
   renderEImgs();
   document.getElementById('ov-edit').classList.add('open');
 }
 function openEdit(id) {
-  eIsNew = false;
-  eItem = items.find(i => i.id === id);
-  if (!eItem) return;
-  document.getElementById('edit-h').textContent = 'Edit: ' + eItem.name;
-  document.getElementById('e-name').value = eItem.name;
-  document.getElementById('e-price').value = eItem.price;
-  document.getElementById('e-orig').value = eItem.orig || '';
-  document.getElementById('e-room').value = eItem.room;
-  document.getElementById('e-dims').value = eItem.dims;
-  document.getElementById('e-color').value = eItem.color;
-  document.getElementById('e-desc').value = eItem.desc;
-  document.getElementById('e-link').value = eItem.link || '';
+  eIsNew=false; eItem=items.find(i=>i.id===id); if(!eItem) return;
+  document.getElementById('edit-h').textContent='Edit: '+eItem.name;
+  document.getElementById('e-name').value=eItem.name;
+  document.getElementById('e-price').value=eItem.price;
+  document.getElementById('e-orig').value=eItem.orig||'';
+  document.getElementById('e-room').value=eItem.room;
+  document.getElementById('e-dims').value=eItem.dims;
+  document.getElementById('e-color').value=eItem.color;
+  document.getElementById('e-desc').value=eItem.desc;
+  document.getElementById('e-link').value=eItem.link||'';
   renderEImgs();
   document.getElementById('ov-edit').classList.add('open');
 }
 function renderEImgs() {
-  const allImgs = [
-    ...(eItem.localImgs || []).map((s, i) => ({src: s, type: 'local', ref: i})),
-    ...(eItem.imgIds || []).map(id => ({src: iUrl(id), type: 'gd', ref: id}))
+  const all=[
+    ...(eItem.photoUrls||[]).map((u,i)=>({src:u,type:'url',ref:i})),
+    ...(eItem.imgIds||[]).map(id=>({src:iUrl(id),type:'id',ref:id}))
   ];
-  const mi = eItem.mainImg || 0;
-  document.getElementById('e-imgs').innerHTML = allImgs.map((img, i) => `
+  const mi=eItem.mainImg||0;
+  document.getElementById('e-imgs').innerHTML=all.map((img,i)=>`
     <div class="ithumb-wrap">
-      <img class="ithumb${i === mi ? ' main' : ''}" src="${img.src}" onclick="setEMain(${i})" onerror="this.style.display='none'">
-      <div class="istar" style="${i === mi ? 'display:flex' : 'display:none'}">★</div>
+      <img class="ithumb${i===mi?' main':''}" src="${img.src}" onclick="setEMain(${i})" onerror="this.style.display='none'">
       <button class="iremove" onclick="removeEImg('${img.type}',${JSON.stringify(img.ref)})">×</button>
     </div>`).join('');
 }
-function setEMain(i) { eItem.mainImg = i; renderEImgs(); }
-function removeEImg(type, ref) {
-  if (type === 'local') eItem.localImgs.splice(parseInt(ref), 1);
-  else eItem.imgIds = eItem.imgIds.filter(id => String(id) !== String(ref));
-  if ((eItem.mainImg || 0) >= getImgs(eItem).length) eItem.mainImg = 0;
+function setEMain(i){eItem.mainImg=i;renderEImgs();}
+function removeEImg(type,ref){
+  if(type==='url') eItem.photoUrls.splice(parseInt(ref),1);
+  else eItem.imgIds=eItem.imgIds.filter(id=>String(id)!==String(ref));
+  if((eItem.mainImg||0)>=getImgs(eItem).length) eItem.mainImg=0;
   renderEImgs();
 }
-function uploadImgs(e) {
-  Array.from(e.target.files).forEach(f => {
-    const r = new FileReader();
-    r.onload = ev => { eItem.localImgs.push(ev.target.result); renderEImgs(); };
-    r.readAsDataURL(f);
+function addUrlImg() {
+  const input = document.getElementById('e-url-input');
+  const url = input.value.trim();
+  if (!url) return;
+  if (!url.startsWith('http')) { alert('Please paste a valid image URL starting with https://'); return; }
+  eItem.photoUrls.push(url);
+  input.value = '';
+  renderEImgs();
+}
+
+  Array.from(e.target.files).forEach(f=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      // Store as data URL for preview; on save, only ibb links are persisted
+      eItem.photoUrls.push(ev.target.result);
+      renderEImgs();
+    };
+    reader.readAsDataURL(f);
   });
-  e.target.value = '';
+  e.target.value='';
 }
 async function saveEdit() {
-  const name = document.getElementById('e-name').value.trim();
-  if (!name) { alert('Please enter a name.'); return; }
-  eItem.name = name;
-  eItem.price = parseFloat(document.getElementById('e-price').value) || 0;
-  const op = document.getElementById('e-orig').value;
-  eItem.orig = op ? parseFloat(op) : null;
-  eItem.room = document.getElementById('e-room').value;
-  eItem.dims = document.getElementById('e-dims').value.trim();
-  eItem.color = document.getElementById('e-color').value.trim();
-  eItem.desc = document.getElementById('e-desc').value.trim();
-  eItem.link = document.getElementById('e-link').value.trim() || null;
-  if (eIsNew) items.push(eItem);
-  eIsNew = false; eItem = null;
+  const name=document.getElementById('e-name').value.trim();
+  if(!name){alert('Please enter a name.');return;}
+  eItem.name=name;
+  eItem.price=parseFloat(document.getElementById('e-price').value)||0;
+  const op=document.getElementById('e-orig').value;
+  eItem.orig=op?parseFloat(op):null;
+  eItem.room=document.getElementById('e-room').value;
+  eItem.dims=document.getElementById('e-dims').value.trim();
+  eItem.color=document.getElementById('e-color').value.trim();
+  eItem.desc=document.getElementById('e-desc').value.trim();
+  eItem.link=document.getElementById('e-link').value.trim()||null;
+  if(eIsNew) items.push(eItem);
+  eIsNew=false; eItem=null;
   closeOv('ov-edit');
   render(activeRoom);
   await dbSave();
 }
-function cancelEdit() { eIsNew = false; eItem = null; closeOv('ov-edit'); }
-
-// ── MAIN PIC MODAL ────────────────────────────────────────────
-function openMainPic(id) {
-  eItem = items.find(i => i.id === id);
-  if (!eItem) return;
-  const all = getImgs(eItem);
-  if (!all.length) { alert('No photos yet. Add photos via Edit first.'); return; }
-  const mi = eItem.mainImg || 0;
-  document.getElementById('mainpic-row').innerHTML = all.map((src, i) => `
-    <div style="position:relative;display:inline-block;cursor:pointer" onclick="setMainPic(${i})">
-      <img src="${src}" style="width:100px;height:85px;object-fit:cover;border-radius:7px;border:${i === mi ? '3px solid var(--admin)' : '2px solid var(--border)'}">
-      ${i === mi ? '<div style="position:absolute;top:4px;left:4px;background:var(--admin);color:#fff;border-radius:3px;padding:1px 5px;font-size:10px">Main</div>' : ''}
-    </div>`).join('');
-  document.getElementById('ov-mainpic').classList.add('open');
-}
-async function setMainPic(i) {
-  if (!eItem) return;
-  eItem.mainImg = i; eItem = null;
-  closeOv('ov-mainpic');
-  render(activeRoom);
-  await dbSave();
-}
-
-// ── SOLD / DELETE ─────────────────────────────────────────────
-async function toggleSold(id) {
-  const item = items.find(i => i.id === id);
-  if (!item) return;
-  item.sold = !item.sold;
-  render(activeRoom); await dbSave();
-}
-async function delItem(id) {
-  if (!confirm('Delete this listing?')) return;
-  items = items.filter(i => i.id !== id);
-  render(activeRoom); await dbDelete(id); await dbSave();
-}
+function cancelEdit(){eIsNew=false;eItem=null;closeOv('ov-edit');}
 
 // ── OVERLAYS ──────────────────────────────────────────────────
-function closeOv(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.ov').forEach(o => {
-  o.addEventListener('click', e => {
-    if (e.target !== o) return;
-    if (o.id === 'ov-edit') cancelEdit();
-    else closeOv(o.id);
+function closeOv(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.ov').forEach(o=>{
+  o.addEventListener('click',e=>{
+    if(e.target!==o) return;
+    if(o.id==='ov-edit') cancelEdit(); else closeOv(o.id);
   });
 });
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.querySelectorAll('.ov.open').forEach(o => o.id === 'ov-edit' ? cancelEdit() : closeOv(o.id));
-  const fsO = document.getElementById('fs').classList.contains('open');
-  const vO  = document.getElementById('ov-view').classList.contains('open');
-  if (e.key === 'ArrowLeft')  { if (fsO) fsNav(-1); else if (vO) vNav(-1); }
-  if (e.key === 'ArrowRight') { if (fsO) fsNav(1);  else if (vO) vNav(1); }
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.ov.open').forEach(o=>o.id==='ov-edit'?cancelEdit():closeOv(o.id));
+  const fsO=document.getElementById('fs').classList.contains('open');
+  const vO=document.getElementById('ov-view').classList.contains('open');
+  if(e.key==='ArrowLeft'){if(fsO)fsNav(-1);else if(vO)vNav(-1);}
+  if(e.key==='ArrowRight'){if(fsO)fsNav(1);else if(vO)vNav(1);}
 });
 
 // ── FILTERS ───────────────────────────────────────────────────
-document.getElementById('fbar').addEventListener('click', e => {
-  if (!e.target.dataset.r) return;
-  document.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
+document.getElementById('fbar').addEventListener('click',e=>{
+  if(!e.target.dataset.r) return;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
   e.target.classList.add('on');
   render(e.target.dataset.r);
 });
 
 // ── INIT ──────────────────────────────────────────────────────
 render('all');
-dbLoad().then(() => render(activeRoom));
+dbLoad().then(()=>render(activeRoom));
 </script>
 </body>
 </html>
