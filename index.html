@@ -258,6 +258,20 @@ const FORMSPREE = 'https://formspree.io/f/mzdwdzdn';
 const SB_URL    = 'https://qiprybskpitvswiyqpmp.supabase.co';
 const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpcHJ5YnNrcGl0dnN3aXlxcG1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzNjUyMjEsImV4cCI6MjA5NDk0MTIyMX0.HVN89sZURzR-DUjfVdycUQZRCA6PUZzpynQaY7Y5GDM';
 const SB_H = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
+const SB_STORAGE = SB_URL+'/storage/v1/object/photos/';
+const SB_STORAGE_PUBLIC = SB_URL+'/storage/v1/object/public/photos/';
+
+async function uploadToSupabase(file) {
+  const ext = file.name.split('.').pop() || 'jpg';
+  const fname = Date.now()+'_'+Math.random().toString(36).slice(2)+'.'+ext;
+  const r = await fetch(SB_STORAGE+fname, {
+    method: 'POST',
+    headers: {'apikey': SB_KEY, 'Authorization': 'Bearer '+SB_KEY, 'Content-Type': file.type, 'x-upsert': 'true'},
+    body: file
+  });
+  if (!r.ok) { const t = await r.text(); throw new Error(t); }
+  return SB_STORAGE_PUBLIC+fname;
+}
 
 // Google Drive direct image URLs — public folder, no hotlink issues
 function gdUrl(id){ return 'https://drive.google.com/uc?id='+id+'&export=download'; }
@@ -428,8 +442,7 @@ async function dbSave() {
   try {
     for (const item of items) {
       const data = Object.assign({}, item, {
-        photoUrls: (item.photoUrls||[]).filter(u => u && !u.startsWith('data:'))
-      });
+        photoUrls: (item.photoUrls||[]).filter(u => u && !u.startsWith('data:'))      });
       const r = await fetch(SB_URL+'/rest/v1/items', {
         method: 'POST',
         headers: Object.assign({}, SB_H, {'Prefer':'resolution=merge-duplicates'}),
@@ -642,13 +655,27 @@ function addUrlImg(){
   if(!url.startsWith('http')){alert('Please paste a valid URL starting with https://');return;}
   eItem.photoUrls.push(url);input.value='';renderEImgs();
 }
-function uploadImgs(e){
-  Array.from(e.target.files).forEach(f=>{
-    const r=new FileReader();
-    r.onload=ev=>{eItem.photoUrls.push(ev.target.result);renderEImgs();};
-    r.readAsDataURL(f);
-  });
-  e.target.value='';
+function uploadImgs(e) {
+  const files = Array.from(e.target.files);
+  e.target.value = '';
+  if (!files.length) return;
+  // Show uploading state
+  const btn = document.querySelector('.upload-btn');
+  const orig = btn.innerHTML;
+  btn.innerHTML = '⏳ Uploading…';
+  btn.style.opacity = '0.6';
+  Promise.all(files.map(f => uploadToSupabase(f)))
+    .then(urls => {
+      urls.forEach(url => eItem.photoUrls.push(url));
+      renderEImgs();
+      btn.innerHTML = orig;
+      btn.style.opacity = '1';
+    })
+    .catch(err => {
+      alert('Upload failed: '+err.message+'\n\nMake sure the "photos" bucket is set to Public in Supabase Storage.');
+      btn.innerHTML = orig;
+      btn.style.opacity = '1';
+    });
 }
 async function saveEdit(){
   const name=document.getElementById('e-name').value.trim();
